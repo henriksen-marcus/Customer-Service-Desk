@@ -71,7 +71,7 @@ CREATE TABLE Mottaklinje (
 
 CREATE TABLE Service (
 	Dato DATE,
-    _Type VARCHAR(20),
+    Type VARCHAR(20),
     Beskrivelse VARCHAR(20),
     Sum INT
 );
