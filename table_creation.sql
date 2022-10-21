@@ -37,7 +37,6 @@ CREATE TABLE Ordre
 (
 	OrdreNr INT,
     KundeNr INT,
-	Ordrelinje INT,
     Dato DATE,
 	Betalingsmetode VARCHAR(20),
     Sum INT,
@@ -82,7 +81,7 @@ CREATE TABLE Medlem
 CREATE TABLE Poststed
 (
   PostNr CHAR(4),
-  Poststed VARCHAR(50) NOT NULL,
+  Stedsnavn VARCHAR(50) NOT NULL,
   PRIMARY KEY (PostNr)
 );
 
@@ -103,16 +102,19 @@ CREATE TABLE Ansatt
 
 CREATE TABLE Mottak 
 (
-	Mottaklinje INT,
+	Mottaksnr INT AUTO_INCREMENT,
     SumVarer INT,
-    Dato DATE
+    Dato DATE,
+    PRIMARY KEY (Mottaksnr)
 );
 
 CREATE TABLE Mottaklinje 
 (
+	Mottaksnr INT,
 	ArtNr INT,
-    Navn VARCHAR(20),
-    Antall INT
+    Antall INT,
+    PRIMARY KEY (Mottaksnr, ArtNr),
+    FOREIGN KEY (Mottaksnr) REFERENCES Mottak(Mottaksnr)
 );
 
 CREATE TABLE Service 
@@ -120,21 +122,26 @@ CREATE TABLE Service
 	ServiceNr INT AUTO_INCREMENT,
 	Dato DATE,
     Type VARCHAR(20),
-    Beskrivelse VARCHAR(1000),
+    Beskrivelse TEXT,
     Sum INT,
     PRIMARY KEY (ServiceNr)
 );
 
 CREATE TABLE Servicelinje 
 (
+	ServiceNr INT,
 	ArtNr INT,
     Navn VARCHAR(20),
     Antall INT,
-    Pris DECIMAL
+    Pris DECIMAL,
+    PRIMARY KEY (ServiceNr, ArtNr),
+    FOREIGN KEY (ServiceNr) REFERENCES Service(ServiceNr),
+    FOREIGN KEY (ArtNr) REFERENCES Produktliste(ArtNr)
 );
 
 CREATE TABLE Kategori 
 (
+	KatNr INT AUTO_INCREMENT,
 	Navn VARCHAR(20),
-    Nr INT
+    PRIMARY KEY (KatNr)
 );
