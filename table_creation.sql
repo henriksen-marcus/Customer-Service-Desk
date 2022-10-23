@@ -17,13 +17,6 @@ CREATE TABLE ProduktListe
     FOREIGN KEY (Kategori) REFERENCES Kategori(KatNr)
 );
 
-CREATE TABLE Kategori
-(
-	KatNr INT AUTO_INCREMENT,
-    Navn VARCHAR(30),
-    PRIMARY KEY (KatNr)
-);
-
 CREATE TABLE PrisHistorikk 
 (
 	ArtNr INT,
@@ -35,7 +28,7 @@ CREATE TABLE PrisHistorikk
 
 CREATE TABLE Ordre 
 (
-	OrdreNr INT,
+	OrdreNr INT AUTO_INCREMENT,
     KundeNr INT,
     Dato DATE,
 	Betalingsmetode VARCHAR(20),
@@ -48,7 +41,6 @@ CREATE TABLE Ordrelinje
 (
 	OrdreNr INT,
 	ArtNr INT,
-    Navn VARCHAR(20),
     Pris DECIMAL(5,2),
     Antall INT,
     PRIMARY KEY (OrdreNr, ArtNr),
@@ -58,7 +50,7 @@ CREATE TABLE Ordrelinje
 
 CREATE TABLE Medlem 
 (
-	KundeNr INT,
+	KundeNr INT AUTO_INCREMENT,
     Navn VARCHAR(50),
     Adresse VARCHAR(50),
     PostNr CHAR(4),
@@ -88,7 +80,7 @@ CREATE TABLE Poststed
 
 CREATE TABLE Ansatt 
 (
-	AnsattNr INT,
+	AnsattNr INT AUTO_INCREMENT,
     Tlf VARCHAR(12),
 	Navn VARCHAR(50),
     Adresse VARCHAR(50),
@@ -110,7 +102,7 @@ CREATE TABLE Mottak
 
 CREATE TABLE Mottaklinje 
 (
-	Mottaksnr INT,
+	Mottaksnr INT AUTO_INCREMENT,
 	ArtNr INT,
     Antall INT,
     PRIMARY KEY (Mottaksnr, ArtNr),
@@ -129,7 +121,7 @@ CREATE TABLE Service
 
 CREATE TABLE Servicelinje 
 (
-	ServiceNr INT,
+	ServiceNr INT AUTO_INCREMENT,
 	ArtNr INT,
     Navn VARCHAR(20),
     Antall INT,

@@ -1,0 +1,83 @@
+*
+{
+  outline: none;
+}
+
+body
+{
+	font-family: "Arial", sans-serif;
+	font-size: 20px;
+	background-color: white;
+	color: #CECECE;
+	margin: 0px;
+	padding: 0px;
+}
+
+#logo
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  margin-top: 10px;
+  user-select: none; /* Standard */
+}
+
+#wrapper
+{
+ /* border: 2px solid red;*/
+  margin: auto;
+  width: 500px;
+  height: auto;
+  margin-top: 30px;
+}
+
+span
+{
+  color: black;
+  font-size: 12px;
+}
+
+#server_status
+{
+  color: red;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  margin: auto;
+  /*border: 2px solid black;*/
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-container > a {
+  color: white;
+  background-color: #67e077;
+  width: 215px;
+  height: 80px;
+  margin: 7px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  border-radius: 4px;
+  font-size: 20px;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  text-decoration: none;
+}
+
+.flex-container > a:hover
+{
+  background-color: #58c466;
+  cursor: pointer;
+}
+
+.flex-container > a:active
+{
+  box-shadow: inset 0px 0px 10px grey;
+}
