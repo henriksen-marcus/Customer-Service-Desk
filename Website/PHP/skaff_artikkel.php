@@ -1,23 +1,7 @@
 <?php
-require_once 'login.php';
+include 'connect.php';
+include 'functions.php';
 
-// Åpner forbindelse til databasen.
-$link = mysqli_connect($tjener, $bruker, $pass, $db);
-if (! $link) {
-  // Enkel feilhåndtering , bare avslutter med melding.
-  exit ('Feil : Fikk ikke kontakt med databasen.');
-}
-
-mysqli_set_charset($link, 'utf8');
-
-// Safety check as well as removing unnecessary chars
-function processData($data)
-{
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
 if (isset($_POST['submit'])) {
   echo "Fant post, behandler data.";
@@ -43,7 +27,7 @@ if (isset($_POST['submit'])) {
 	print("<tr><td><b>VareNr</b></td>.<td><b>Pris</b></td>.<td><b>Beskrivelse</b></td></tr>");
 	$rad = mysqli_fetch_assoc($resultat );
 
-  
+
 
 	while ($rad) {
 		$vnr = $rad['VNr'];

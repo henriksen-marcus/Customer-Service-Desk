@@ -3,6 +3,9 @@
   outline: none;
 }
 
+body {
+}
+
 #logo
 {
   display: block;
@@ -22,7 +25,56 @@
   margin-top: 45px;
 }
 
-.successmsg
+table {
+  background-color: rgba(0, 0, 0, 0.09);
+  padding: 2px;
+  margin: auto;
+}
+
+thead {
+  cursor: pointer;
+  background: #c9dff0;
+}
+thead tr th {
+  font-weight: bold;
+  padding: 6px 15px;
+  padding-left: 21px;
+}
+
+tbody tr {
+  color: #555;
+}
+
+tbody tr td {
+  text-align: center;
+  padding: 2px 1px;
+  background-color: white;
+}
+
+tbody tr td.lalign {
+  text-align: left;
+}
+
+.formWrapper
 {
-  color: green;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form
+{
+  display: inline-block;
+  text-align: left;
+}
+
+#submitBtn
+{
+  float: right;
+  margin-right: 9px;
+  margin-top: 4px;
+}
+
+#loadback
+{
+  text-align: center;
 }

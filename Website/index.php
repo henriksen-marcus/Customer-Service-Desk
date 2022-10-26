@@ -36,13 +36,13 @@
 			?>
       <br>
       <div class="flex-container">
-        <a href="after_sales.php">After sales</a>
-        <a href="registrer_medlem.php">Registrer medlem</a>
-        <a href="vedlikehold_medlem.php">Vedlikehold medlem</a>
-        <a href="artikkeloversikt.php">Artikkeloversikt</a>
+        <a href="after_sales.html">After sales</a>
+        <a href="registrer_medlem.html">Registrer medlem</a>
+        <a href="vedlikehold_medlem.html">Vedlikehold medlem</a>
+        <a href="artikkeloversikt.html">Artikkeloversikt</a>
         <a href="mottak.php">Mottak</a>
-        <a href="endre_artikkel.php">Endre artikkel</a>
-				<a href="legg_til_artikkel.php">Legg til artikkel</a>
+        <a href="endre_artikkel.html">Endre artikkel</a>
+				<a href="legg_til_artikkel.html">Legg til artikkel</a>
       </div>
     </div>
 	</body>

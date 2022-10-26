@@ -1,5 +1,5 @@
 <?php
-require_once 'login.php';
+include 'login.php';
 
 // Åpner forbindelse til databasen.
 $link = mysqli_connect($tjener, $bruker, $pass, $db);
