@@ -10,7 +10,7 @@
   while ($index < $num_rows)
   {
     $rad = mysqli_fetch_assoc($resultat);
-    $val = $rad["Bokstav"];
+    $val = $rad["bokstav"];
     $navn = $rad["Navn"];
     echo "<option value='$val'>$val - $navn</option>";
     $index++;

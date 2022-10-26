@@ -38,4 +38,26 @@ INSERT INTO kategori (Bokstav, Navn) VALUES
 
 SELECT Navn FROM kategori;
 
-SELECT Bokstav FROM kategori
+SELECT Bokstav FROM kategori;
+
+ALTER TABLE kategori RENAME COLUMN Bokstav TO bokstav;
+
+ALTER TABLE kategori CHANGE Bokstav bokstav char(1);
+
+ALTER TABLE produktliste MODIFY Kategori char(1);
+
+ALTER TABLE produktliste
+
+select CONSTRAINT_NAME
+from INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+where TABLE_NAME = 'produktliste';
+
+SELECT CONSTRAINT_NAME
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+WHERE TABLE_NAME =  'produktliste'
+AND COLUMN_NAME =  'Kategori';
+
+ALTER TABLE produktliste
+ADD FOREIGN KEY (Kategori) REFERENCES Kategori(bokstav);
+
+SELECT * FROM Produktliste ORDER BY ArtNr DESC LIMIT 1;

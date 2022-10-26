@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script
+			src="https://code.jquery.com/jquery-3.6.1.min.js"
+			integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+			crossorigin="anonymous">
+		</script>
+		<script>
+			// Connection test
+			$(document).ready(function() {
+				$.ajax({
+					url: "./PHP/sjekk_tilkobling.php",
+					type: "POST",
+					success: function (result) {
+						console.log(result);
+						if (result == "true")
+						{
+							$("#server-status").append("<span style='color:green'>Connected</span>");
+						}
+						else
+						{
+							$("#server-status").append("<span style='color:red'>Not connected</span>");
+						}
+					}
+				});
+			});
+		</script>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="CSS/index.css"/>
+		<title>Jula</title>
+	</head>
+	<body>
+		<a href="http://localhost/Website/">
+			<img id="logo" src="https://i.imgur.com/oyQFzWx.png" alt="Jula Kundeservice">
+		</a>
+    <div id="wrapper">
+			<span id="server-status">
+				<span style="padding-left: 32px;"></span>
+	      <span>Server status:</span>
+			</span>
+      <br>
+      <div class="flex-container">
+        <a href="after_sales.html">After sales</a>
+        <a href="registrer_medlem.html">Registrer medlem</a>
+        <a href="vedlikehold_medlem.html">Vedlikehold medlem</a>
+        <a href="artikkeloversikt.html">Artikkeloversikt</a>
+        <a href="mottak.php">Mottak</a>
+        <a href="endre_artikkel.html">Endre artikkel</a>
+				<a href="legg_til_artikkel.html">Legg til artikkel</a>
+      </div>
+    </div>
+	</body>
+</html>

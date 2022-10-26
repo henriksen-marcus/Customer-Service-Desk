@@ -4,83 +4,73 @@
 			src="https://code.jquery.com/jquery-3.6.1.min.js"
 			integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
 			crossorigin="anonymous">
-	</script>
-	<script src="JS/kategori_options.js"></script>
-	<!-- Code for loading the database addition back to the website using ajax. -->
-	<script src="JS/legg_til_artikkel.js"></script>
+		</script>
+		<script src="JS/kategori_options.js"></script>
+		<!-- Code for loading the database addition back to the website using ajax. -->
+		<script src="JS/legg_til_artikkel.js"></script>
+		<script>
+		// Help user get the right hylle
+		function updateHylleVal() {
+			var currentCat = $("#kategori").val();
+			console.log(currentCat);
+			var val = $("#hylle").val().slice(1);
+			var newVal = currentCat.concat(val);
+			console.log(newVal);
+			$("#hylle").val(newVal);
+		}
+		$(document).ready(function(){
+			$("#hylle").keyup(function(){
+				updateHylleVal();
+			});
+			$("#kategori").change(function() {
+				updateHylleVal();
+			});
+		});
+		</script>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
 		<title>Legg til artikkel</title>
 	</head>
 	<body>
-    <img id="logo" src="https://i.imgur.com/oyQFzWx.png">
-
-  <div id="wrapper">
-		<div class="formWrapper" method="POST" action="PHP/last_siste.php">
-			<h3 style="float">Legg til artikkel:</h3><br>
-			<form>
-		      <label for="navn">Artikkelnavn:</label><br>
-		      <input type="text" name="navn" id="navn" autofocus> *
-					<br>
-		      <label for="pris">Pris:</label><br>
-					<input type="number" name="pris" id="pris">
-					<br>
-					<label for="kategori">Kategori:</label><br>
-					<select type="text" name="kategori" id="kategori">
-					</select> *
-					<br>
-					<label for="beskrivelse">Beskrivelse:</label><br>
-					<textarea type="text" name="beskrivelse" rows=5 style="width:95%" id="beskrivelse"></textarea>
-					<br>
-					<label for="antall">Antall:</label><br>
-					<input type="text" name="antall" value="0" id="antall"> *
-					<br>
-					<label for="hylle">Hylle:</label><br>
-					<input type="text" name="hylle" id="hylle">
-					<br>
-					<button type="submit" name="submit" id="submitBtn">Legg til</button>
-	    </form>
+		<div class="backContainer">
+			<button class="backBtn" href="http://localhost/Website/">< Tilbake</button>
 		</div>
-			<br>
-			<!-- Container for dispalying add confirmation success/not success -->
-			<div id="resultContainer" style="text-align:center;"></div>
-			<br>
-			<!-- Container for loading table via AJAX from database -->
-			<div id="loadback"></div>
-
-
-		<!--	<?php
-			echo isset($_GET['success']);
-			if (isset($_GET['success']))
-			{
-				// Grønn mld og at det er lagt til
-				echo "<p class='successmsg'>Artikkel lagt til!</p><br>";
-
-				// Hent det brukeren la til fra databasen, og vis det
-				// $sql = "SELECT * FROM ProduktListe ORDER BY ArtNr LIMIT 1;";
-				// $resultat =  mysqli_querey($link, $sql);
-				// $rad = mysqli_fetch_assoc($resultat);
-				//
-				// echo "<tr><td><b>Art.Nr</b></td></tr>.<tr><td><b>Navn</b></td></tr>";
-				// echo "<tr><td>$rad['ArtNr']</td><td>$rad['Navn']</td></tr>";
-			}
-			elseif (isset($_GET['error_arr'])) {
-				$error_arr = $_GET['error_arr'];
-				echo $error_arr;
-			}
-			?> -->
-  </div>
-
-
+    <a href="http://localhost/Website/">
+			<img id="logo" src="https://i.imgur.com/oyQFzWx.png" alt="Jula Kundeservice">
+		</a>
+	  <div id="wrapper">
+			<div class="formWrapper" method="POST" action="PHP/last_siste.php">
+				<h3 style="float">Legg til artikkel:</h3><br>
+				<form autocomplete="off">
+			      <label for="navn">Artikkelnavn:</label><br>
+			      <input type="text" name="navn" id="navn" autofocus required> *
+						<br>
+			      <label for="pris">Pris:</label><br>
+						<input type="number" min="0" max="99999.99" step=".01" name="pris" id="pris">
+						<br>
+						<label for="kategori">Kategori:</label><br>
+						<select type="text" name="kategori" id="kategori" required>
+						</select> *
+						<br>
+						<label for="beskrivelse">Beskrivelse:</label><br>
+						<textarea type="text" name="beskrivelse" rows=5 style="width:95%" maxlength="1500" id="beskrivelse"></textarea>
+						<br>
+						<label for="antall">Antall:</label><br>
+						<input type="number" name="antall" value="0" id="antall" required> *
+						<br>
+						<label for="hylle">Hylle:</label><br>
+						<input type="text" name="hylle" value="A001" placeholder="A001" id="hylle">
+						<br>
+						<button type="submit" name="submit" id="submitBtn">Legg til</button>
+		    </form>
+			</div>
+				<br>
+				<!-- Container for dispalying add confirmation success/not success -->
+				<div id="resultContainer" style="text-align:center;"></div>
+				<br>
+				<!-- Container for loading table via AJAX from database -->
+				<div id="loadback"></div>
+	  </div>
 	</body>
 </html>
-
-<!--
-<select name="type">
-	<option value="searchterm">Art.nr</option>
-	<option value="navn">Navn</option>
-	<option value="kategori">Kategori</option>
-	<option value="pris">Pris</option>
-</select>
- -->

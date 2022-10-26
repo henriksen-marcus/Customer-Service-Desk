@@ -2,15 +2,17 @@
 $(document).ready(function() {
   $("form").submit(function(event){
     event.preventDefault();
+    
     var navn = $("#navn").val();
     var pris = $("#pris").val();
     var kategori = $("#kategori").val();
     var beskrivelse = $("#beskrivelse").val();
     var antall = $("#antall").val();
-    var hylle = $("#hylle").val();
+    var hyllebokstav = $("#hylle").val().substr(0, 1);
+    var hyllenr = $("#hylle").val().slice(1);
 
     $.ajax({
-        url: "./PHP/last_siste.php",
+        url: "./PHP/legg_til_artikkel.php",
         type: "POST",
         data: {
           navn: navn,
@@ -18,23 +20,41 @@ $(document).ready(function() {
           kategori: kategori,
           beskrivelse: beskrivelse,
           antall: antall,
-          hylle: hylle
+          hyllebokstav: hyllebokstav,
+          hyllenr: hyllenr
         },
         success: function (result) {
-            if (result[0] == "0")
+          console.log("Success!!!");
+          console.log(result);
+            if (result[0] == "1")
             {
-              // Remove the "0"
-              $("#loadback").html(result.slice(1));
-              $("#loadback").css("color", "red");
+              $("#resultContainer").add("p").html("Lagt til i databasen.").css("color", "green");
+              $.ajax({
+                  url: "./PHP/last_siste.php",
+                  type: "POST",
+                  success: function (result) {
+                      if (result[0] == "0")
+                      {
+                        // Remove the "0"
+                        $("#loadback").html(result.slice(1));
+                        $("#loadback").css("color", "red");
+                      }
+                      else
+                      {
+                        $("#loadback").html(result);
+                      }
+                  }
+              });
+              $("form")[0].reset();
+              // A simpler but less feauture-rich method:
+              //$("#loadback").load("PHP/last_siste.php");
             }
             else
             {
-              $("#resultContainer").add("p").html("Added to the database.").css("color", "green");
               $("#loadback").html(result);
+              $("#loadback").css("color", "red");
             }
         }
     });
-    // A simpler but less feauture-rich method:
-    //$("#loadback").load("PHP/last_siste.php");
   });
 });

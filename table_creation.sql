@@ -14,7 +14,7 @@ CREATE TABLE ProduktListe
     Antall INT, 
     Hylle VARCHAR(4),
     PRIMARY KEY (ArtNr),
-    FOREIGN KEY (Kategori) REFERENCES Kategori(KatNr)
+    FOREIGN KEY (Kategori) REFERENCES Kategori(bokstav)
 );
 
 CREATE TABLE PrisHistorikk 

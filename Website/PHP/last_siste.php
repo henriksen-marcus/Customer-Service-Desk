@@ -3,7 +3,7 @@
 
   include 'connect.php';
 
-  $sql = "SELECT * FROM Produktliste LIMIT 1;";
+  $sql = "SELECT * FROM Produktliste ORDER BY ArtNr DESC LIMIT 1;";
   $resultat = mysqli_query($link, $sql);
 
   // Get number of columns in the table
