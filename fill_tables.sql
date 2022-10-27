@@ -61,3 +61,11 @@ ALTER TABLE produktliste
 ADD FOREIGN KEY (Kategori) REFERENCES Kategori(bokstav);
 
 SELECT * FROM Produktliste ORDER BY ArtNr DESC LIMIT 1;
+
+
+INSERT INTO mottak (SumVarer, Dato) VALUES (1000, '1000-01-01'),
+                                           (2499, '2052-01-01'),
+                                           (4499, '2062-01-01'),
+                                           (66499, '2072-01-01');
+
+SELECT * FROM Mottak;

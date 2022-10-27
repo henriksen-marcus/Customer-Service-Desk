@@ -25,33 +25,33 @@ body {
   margin-top: 45px;
 }
 
-table {
+#loadback table {
   background-color: rgba(0, 0, 0, 0.09);
   padding: 2px;
   margin: auto;
 }
 
-thead {
+#loadback thead {
   cursor: pointer;
   background: #c9dff0;
 }
-thead tr th {
+#loadback thead tr th {
   font-weight: bold;
   padding: 6px 15px;
   padding-left: 21px;
 }
 
-tbody tr {
+#loadback tbody tr {
   color: #555;
 }
 
-tbody tr td {
+#loadback tbody tr td {
   text-align: center;
   padding: 2px 1px;
   background-color: white;
 }
 
-tbody tr td.lalign {
+#loadback tbody tr td.lalign {
   text-align: left;
 }
 
@@ -102,4 +102,20 @@ form
 .backBtn:hover
 {
   cursor: pointer;
+}
+
+.searchForm
+{
+  padding: 0;
+}
+
+.searchForm input
+{
+  width: 100%;
+}
+
+.seachForm button
+{
+  margin: 0;
+  float: left;
 }

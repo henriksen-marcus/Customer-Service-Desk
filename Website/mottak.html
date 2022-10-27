@@ -1,21 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
     <title>Mottak</title>
+    <script
+			src="https://code.jquery.com/jquery-3.6.1.min.js"
+			integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+			crossorigin="anonymous">
+		</script>
     <script>
-      $("mottakbtn").click(function(){
-        $("eldremottak").load("PHP/mottak_php.php");
+    $(document).ready(function(){
+      // Disable form reloading page
+      $("form").submit(function(event){
+        event.preventDefault();
       });
+      var loadCount = 0;
+
+      function requestDelivery()
+      {
+        $("#loadback").load("PHP/mottak_php.php", { newLoadCount: loadCount });
+      }
+
+      // Request delivery history
+      $("#mottakbtn").click(function(){
+        // Show load more button if we haven't loaded anything yet
+        if (!loadCount)
+        {
+          $("#loadMoreBtn").show();
+        }
+        loadCount += 2;
+        requestDelivery();
+      });
+      $("#loadMoreBtn").click(function() {
+        loadCount += 2;
+        requestDelivery();
+      });
+    });
     </script>
     <script>
       $(document).ready(function(){
         $("#lagremottak").on('click', function(){
-          var mlnr $('#Mottaklinje').val();
-          var sumvarer $('#SumVarer').val();
-          var dato $('#Dato').val();
-          if (!mlnr="" && !sumvarer="" && !dato="") {
+          var mlnr = $('#Mottaklinje').val();
+          var sumvarer = $('#SumVarer').val();
+          var dato = $('#Dato').val();
+          if (mlnr && sumvarer && dato) {
             $.ajax({
               url: "save_mottak.php",
               type: "POST",
@@ -56,21 +85,26 @@
       <img id="logo" src="https://i.imgur.com/oyQFzWx.png">
     </a>
         <div id="wrapper" style="width: 200px;">
-          <form method="POST" action="PHP/mottak_php.php">
-            <label for="Mottaklinje">Mottaklinje:</label><br>
-            <input id="Mottaklinje" type="text" name="Mottaklinje" autofocus>*
-            <br>
-            <label for="Sum varer">Sum varer:</label><br>
-            <input id="SumVarer" type="text" name="Sum varer" autofocus>*
-            <br>
-            <label for="Dato">Dato:</label><br>
-            <input id="Dato" type="text" name="Dato" autofocus>*
-            <br>
-            <button id="lagremottak" type="submit" name="submit" style="margin-top: 5px">Legg til mottak</button>
-            <br>
-            <button id="mottakbtn" type="eldremottak" name="eldremottak" style="margin-top: 5px">Se eldre mottak</button>
-
-          </form>
+          <div class="formWrapper">
+            <form>
+              <label for="Mottaklinje">Mottaklinje:</label><br>
+              <input id="Mottaklinje" type="text" name="Mottaklinje" autofocus>*
+              <br>
+              <label for="Sum varer">Sum varer:</label><br>
+              <input id="SumVarer" type="text" name="Sum varer" autofocus>*
+              <br>
+              <label for="Dato">Dato:</label><br>
+              <input id="Dato" type="text" name="Dato" autofocus>*
+              <br>
+              <button id="lagremottak" type="submit" name="submit" style="margin-top: 5px">Legg til mottak</button>
+              <br>
+              <button id="mottakbtn" name="eldremottak" style="margin-top: 5px">Se eldre mottak</button>
+            </form>
+          </div>
+          <br><br>
+          <div id="loadback"></div>
+          <button id="loadMoreBtn" style="display:none;">Last flere...</button>
         </div>
+
   </body>
 </html>

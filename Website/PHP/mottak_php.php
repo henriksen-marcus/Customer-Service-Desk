@@ -1,61 +1,53 @@
 <?php
-require_once 'connect.php';
-require_once 'functions.php';
+  // Load the specified number of rows from the table 'mottak'
 
-?>
+  include 'connect.php';
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-        <link rel="stylesheet" type="text/css" href="../CSS/stylesheet.css"/>
-    <meta charset="utf-8">
-    <title></title>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
-      crossorigin="anonymous">
-    </script>
-<script>
-  $(document).ready(function(){
-    var mottakcount = 2;
-    $("eldremottakbtn").click(function(){
-      mottakcount = mottakcount + 2;
-      $("#mottakbox").load("eldremottak.php", {
-        mottaknewcount: mottakcount;
+  if (isset($_POST["newLoadCount"]))
+  {
+    $newLoadCount = $_POST["newLoadCount"];
 
-      });
-    })
-  });
-</script>
+    $sql = "SELECT * FROM mottak LIMIT $newLoadCount";
+    $result = mysqli_query($link, $sql);
+    $cols = mysqli_field_count($link);
+    if (mysqli_num_rows($result) > 0) {
 
-  </head>
-  <body>
-    <div class="backContainer">
-      <button class="backBtn" onclick="window.location.href='http://localhost/Website/mottak.html';">< Tilbake</button>
-    </div>
-    <a href="http://localhost/Website/">
-      <img id="logo" src="https://i.imgur.com/oyQFzWx.png">
-    </a>
-    <div id="mottakbox">
-      <?php
-      $sql = "SELECT * FROM mottak LIMIT 2";
-      $result = mysqli_query($link, $sql);
-      if (mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-          echo "<p>";
-          $row['Mottaklinje'];
-          echo "<br>";
-          $row['SumVarer'];
-          echo "<br>";
-          $row['Dato'];
-          echo "<br>";
-          echo "</p>";
-        }
-      }else {
-        echo "Nothing here but you";
+      $fields = $result->fetch_fields();
+
+      echo "<table>";
+      echo "<thead>";
+
+      $loops = 0;
+      // Print the first row (name of columns)
+      while ($loops < $cols)
+      {
+        $nameStr = ucfirst($fields[$loops]->name);
+        echo "<th>$nameStr</th>";
+        $loops++;
       }
-      ?>
-    </div>
-  <button id="eldremottakbtn" name="eldremottak" style="margin-top: 5px">Last inn eldre mottak</button>
+      echo "</thead>";
+      echo "<tbody>";
 
-  </body>
-</html>
+      while ($rad = mysqli_fetch_row($result))
+      {
+        echo "<tr>";
+        for ($i = 0; $i < $cols; $i ++)
+        {
+          echo "<td>$rad[$i]</td>";
+        }
+        echo "</tr>";
+      }
+      echo "</tbody>";
+      echo "</table>";
+
+      if (mysqli_num_rows($result) < $newLoadCount)
+      {
+        echo "<p>Ingen flere mottak.</p>";
+      }
+    }
+    else
+    {
+      echo "Ingen mottak funnet!";
+    }
+  }
+?>
