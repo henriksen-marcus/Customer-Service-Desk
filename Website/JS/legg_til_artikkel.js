@@ -2,7 +2,11 @@
 $(document).ready(function() {
   $("form").submit(function(event){
     event.preventDefault();
-    
+
+    $('form').children("input, textarea, select").each(function () {
+        $(this).css("color", "black");
+    });
+
     var navn = $("#navn").val();
     var pris = $("#pris").val();
     var kategori = $("#kategori").val();
@@ -24,7 +28,6 @@ $(document).ready(function() {
           hyllenr: hyllenr
         },
         success: function (result) {
-          console.log("Success!!!");
           console.log(result);
             if (result[0] == "1")
             {
@@ -48,6 +51,18 @@ $(document).ready(function() {
               $("form")[0].reset();
               // A simpler but less feauture-rich method:
               //$("#loadback").load("PHP/last_siste.php");
+            }
+            else if(result[0] == "0")
+            {
+              var returnArr = JSON.parse(result.slice(1));
+              var i = 0;
+              $('form').children("input, textarea, select").each(function () {
+                if (returnArr[i])
+                {
+                  $(this).css("color", "red");
+                }
+                i++;
+              });
             }
             else
             {

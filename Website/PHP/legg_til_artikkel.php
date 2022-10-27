@@ -88,7 +88,8 @@ if (isset($_POST['navn']))
   if ($navnError || $prisError || $kategoriError || $beskrivelseError
       || $antallError || $hylleError)
   {
-    echo var_dump(array($navnError, $prisError, $kategoriError,
+    echo "0";
+    echo json_encode(array($navnError, $prisError, $kategoriError,
     $beskrivelseError, $antallError , $hylleError));
   }
   else
