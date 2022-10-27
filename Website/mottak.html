@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
+    <title>Mottak</title>
+    <script>
+      $("mottakbtn").click(function(){
+        $("eldremottak").load("PHP/mottak_php.php");
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#lagremottak").on('click', function(){
+          var mlnr $('#Mottaklinje').val();
+          var sumvarer $('#SumVarer').val();
+          var dato $('#Dato').val();
+          if (!mlnr="" && !sumvarer="" && !dato="") {
+            $.ajax({
+              url: "save_mottak.php",
+              type: "POST",
+              data: {
+                mlnr: Mottaklinje,
+                sumvarer: SumVarer,
+                dato: Dato
+              },
+              cache: false,
+              success: function(dataResult){
+                var dataResult = JSON.parse(dataResult);
+                if (dataResult.statusCode==200) {
+                  $("#lagremottak").removeAttr("disabled");
+                  $("#wrapper").find('input:text').val('');
+                  $("#success").show();
+                  $("#success").html('Data added successfully');
+                }
+                else if (dataResult.statusCode==201) {
+                  alert("Error");
+                }
+              }
+            });
+
+          }
+          else {
+            alert("Please fill inn all the fields");
+          }
+        });
+      });
+    </script>
+
+  </head>
+  <body>
+    <div class="backContainer">
+      <button class="backBtn" onclick="window.location.href='http://localhost/Website/';">< Tilbake</button>
+    </div>
+    <a href="http://localhost/Website/">
+      <img id="logo" src="https://i.imgur.com/oyQFzWx.png">
+    </a>
+        <div id="wrapper" style="width: 200px;">
+          <form method="POST" action="PHP/mottak_php.php">
+            <label for="Mottaklinje">Mottaklinje:</label><br>
+            <input id="Mottaklinje" type="text" name="Mottaklinje" autofocus>*
+            <br>
+            <label for="Sum varer">Sum varer:</label><br>
+            <input id="SumVarer" type="text" name="Sum varer" autofocus>*
+            <br>
+            <label for="Dato">Dato:</label><br>
+            <input id="Dato" type="text" name="Dato" autofocus>*
+            <br>
+            <button id="lagremottak" type="submit" name="submit" style="margin-top: 5px">Legg til mottak</button>
+            <br>
+            <button id="mottakbtn" type="eldremottak" name="eldremottak" style="margin-top: 5px">Se eldre mottak</button>
+
+          </form>
+        </div>
+  </body>
+</html>
