@@ -60,10 +60,6 @@ if (isset($_POST['navn']))
   $antall = number_format($antall, 0, '', '');
   if (!isset($antall) || $antall < 0) { $antallError = true; }
 
-  // $fields = $resultat->fetch_fields();
-  // $fsafasd = $fields[0]->name;
-  // echo "Here is the name: $fsafasd";
-
   // Check shelf pos error
   if (!empty($hylleNr))
   {
