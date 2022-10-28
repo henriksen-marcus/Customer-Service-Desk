@@ -3,33 +3,21 @@ include 'connect.php';
 include 'functions.php';
 
 
-if (isset($_POST['submit'])) {
-  echo "Fant post, behandler data.";
+if (isset($_POST['navn'])) {
 
-  $_SESSION["NavnArr"] = null;
+  $navn = processData($_POST['navn']);
+  $pris = processData($_POST['pris']);
+  $kategori = processData($_POST['kategori']);
+  $beskrivelse = processData($_POST['beskrivelse']);
+  $antall = processData($_POST['antall']);
+  $hylleBokstav = processData($_POST['hyllebokstav']);
+  $hylleNr = processData($_POST['hyllenr']);
 
-  $searchterm = processData($_POST['searchterm']);
-  $type = $_POST['type'];
-
-  echo $searchterm;
-  echo $type;
-
-  // Bygger opp en SQL−spørring basert på inndata fra brukeren .
 	$sql = "SELECT * FROM ProduktListe WHERE $type LIKE '$searchterm%'";
 
-	// Sender SQL−spørringen til databasen for utførelse
 	$resultat = mysqli_query($link, "SELECT * FROM ProduktListe");
 
-  // Behandler spørreresultatet og skriver ut ny nettside (HTML).
-	print( ' <table border="1">');
-	//print("<div float:left>");
-	//print("<tr><td><b>VareNr</b></td><td><b>Pris</b></td><td><img src='sortiment.jpg' alt='Varekatalog' width='42' height='42'></td></tr>");
-	print("<tr><td><b>VareNr</b></td>.<td><b>Pris</b></td>.<td><b>Beskrivelse</b></td></tr>");
-	$rad = mysqli_fetch_assoc($resultat );
-
-
-
-	while ($rad) {
+	while ($rad = mysqli_fetch_assoc($resultat );) {
 		$vnr = $rad['VNr'];
 		$pris = $rad['Pris'];
 		$betegnelse = $rad['Betegnelse'];
