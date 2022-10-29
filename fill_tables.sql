@@ -68,4 +68,6 @@ INSERT INTO mottak (SumVarer, Dato) VALUES (1000, '1000-01-01'),
                                            (4499, '2062-01-01'),
                                            (66499, '2072-01-01');
 
-SELECT * FROM Mottak;
+SELECT * FROM produktliste;
+
+SELECT * FROM ProduktListe;

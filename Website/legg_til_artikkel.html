@@ -8,25 +8,7 @@
 		<script src="JS/kategori_options.js"></script>
 		<!-- Code for loading the database addition back to the website using ajax. -->
 		<script src="JS/legg_til_artikkel.js"></script>
-		<script>
-		// Help user get the right hylle
-		function updateHylleVal() {
-			var currentCat = $("#kategori").val();
-			console.log(currentCat);
-			var val = $("#hylle").val().slice(1);
-			var newVal = currentCat.concat(val);
-			console.log(newVal);
-			$("#hylle").val(newVal);
-		}
-		$(document).ready(function(){
-			$("#hylle").keyup(function(){
-				updateHylleVal();
-			});
-			$("#kategori").change(function() {
-				updateHylleVal();
-			});
-		});
-		</script>
+		<script src="JS/shelf_help.js"></script>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
@@ -60,7 +42,7 @@
 						<input type="number" name="antall" value="0" id="antall" required> *
 						<br>
 						<label for="hylle">Hylle:</label><br>
-						<input type="text" name="hylle" value="A001" placeholder="A001" id="hylle">
+						<input type="text" name="hylle" placeholder="A001" id="hylle">
 						<br>
 						<button type="submit" name="submit" id="submitBtn">Legg til</button>
 		    </form>

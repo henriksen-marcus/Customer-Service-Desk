@@ -1,4 +1,11 @@
 
 $(document).ready(function() {
-  $("#kategori").load("./PHP/skaff_kategorier.php");
+  $.ajax({
+    url: "./PHP/skaff_kategorier.php",
+    type: "POST",
+    success: function (result)
+    {
+      $("#kategori").append(result);
+    }
+  });
 });

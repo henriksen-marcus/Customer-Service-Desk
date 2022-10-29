@@ -9,30 +9,48 @@ if (isset($_POST['navn'])) {
   $pris = processData($_POST['pris']);
   $kategori = processData($_POST['kategori']);
   $beskrivelse = processData($_POST['beskrivelse']);
-  $antall = processData($_POST['antall']);
-  $hylleBokstav = processData($_POST['hyllebokstav']);
-  $hylleNr = processData($_POST['hyllenr']);
+  $hylleBokstav = processData($_POST['hylleBokstav']);
+  $hylleNr = processData($_POST['hylleNr']);
 
-	$sql = "SELECT * FROM ProduktListe WHERE $type LIKE '$searchterm%'";
+	$sql = "SELECT * FROM ProduktListe WHERE";
 
-	$resultat = mysqli_query($link, "SELECT * FROM ProduktListe");
+  function addSQL($str)
+  {
+    global $sql;
+    $arr = explode(" ", $sql);
+    if (end($arr) != "WHERE")
+    {
+      $sql = $sql . "AND";
+    }
+    $sql = $sql . " " . $str . " ";
+  }
 
-	while ($rad = mysqli_fetch_assoc($resultat );) {
-		$vnr = $rad['VNr'];
-		$pris = $rad['Pris'];
-		$betegnelse = $rad['Betegnelse'];
-		print("<tr><td>$vnr</td><td>$pris</td><td>$betegnelse</td></tr>");
-		$rad = mysqli_fetch_assoc($resultat );
-	}
-	print( ' </table> </div>');
-	// Lukker forbindelsen til databasen .
-	mysqli_close($link);
-	print("<div float:right>");
-	//print("<img src='sortiment.jpg' alt='Varekatalog'>");
-	print( '</div>');
+  if (!empty($navn)) { addSQL("Navn LIKE '%$navn%'"); }
+  if (!empty($kategori)) { addSQL("Kategori = '$kategori'"); }
+  if (!empty($beskrivelse)) { addSQL("Beskrivelse LIKE '%$beskrivelse%'"); }
+  if (!empty($pris))
+  {
+    // More forgiving search for price, user doesn't have
+    // to remember decimal values.
+    $prisMod = number_format($pris, 0, '.', '');
+    $prisModPlus = $prisMod + 1;
+    addSQL("Pris BETWEEN $prisMod AND $prisModPlus");
+  }
+  if (!empty($hylleNr))
+  {
+    $hylle = $hylleBokstav . $hylleNr;
+    addSQL("Hylle = $hylle");
+  }
+  $sqlPrint = json_encode($sql);
+  echo "<script>console.log('SQL query: ' + $sqlPrint)</script>";
 
+	$resultat = mysqli_query($link, $sql);
+  $antallRader = mysqli_num_rows($resultat);
+  echo "Fant $antallRader artikler.<br><br>";
+
+	printTable($link, $resultat);
 }
 else {
-  echo "Fant ikke post.";
+  echo "Det har oppstått en feil.";
 }
 ?>

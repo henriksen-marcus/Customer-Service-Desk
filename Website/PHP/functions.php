@@ -10,6 +10,11 @@
 
   function printTable($link, $result)
   {
+    if (mysqli_num_rows($result) < 1)
+    {
+      return;
+    }
+
     $fields = $result->fetch_fields();
     $cols = mysqli_field_count($link);
 

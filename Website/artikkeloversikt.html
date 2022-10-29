@@ -22,7 +22,9 @@
 	</head>
 	<body>
 		<div class="backContainer">
-					<button class="backBtn" onclick="window.location.href='http://localhost/Website/';">< Tilbake</button>
+					<button class="backBtn" onclick="window.location.href='http://localhost/Website/';">
+						< Tilbake
+					</button>
 				</div>
 				<a href="http://localhost/Website/">
 					<img id="logo" src="https://i.imgur.com/oyQFzWx.png" alt="Jula Kundeservice">
@@ -39,9 +41,9 @@
 				      <td><p>Kategori:</p></td>
 				    </tr>
 				    <tr>
-				      <td><input type="text" id="navn" autofocus></td>
-				      <td><input type="number" min="0" max="99999.99" step=".01" id="pris"></td>
-				      <td><select type="text" id="kategori"></select></td>
+				      <td><input type="text" id="navn" autofocus/></td>
+				      <td><input type="number" min="0" max="99999.99" step=".01" id="pris"/></td>
+				      <td><select type="text" id="kategori"><option value="">Vet ikke</option></select></td>
 				    </tr>
 				    <tr>
 				      <td><p>Beskrivelse:</p></td>
@@ -49,11 +51,13 @@
 				    </tr>
 				    <tr>
 				      <td><textarea type="text" rows=1 maxlength="1500" id="beskrivelse"></textarea></td>
-				      <td><input type="text" placeholder="A001" id="hylle"></td>
-				      <td><input type="submit" value="Søk"/></td>
+				      <td><input type="text" placeholder="A001" id="hylle"/></td>
+				      <td><input type="submit" id="searchBtn" value="Søk"/></td>
 				    </tr>
 				  </table>
 				</div>
+				<p id="errorField" style="text-align:center; color:red;"></p>
+				<br>
 				<div id="loadback"></div>
 		  </div>
 	</body>
