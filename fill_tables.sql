@@ -71,3 +71,7 @@ INSERT INTO mottak (SumVarer, Dato) VALUES (1000, '1000-01-01'),
 SELECT * FROM produktliste;
 
 SELECT * FROM ProduktListe;
+
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'Produktliste';

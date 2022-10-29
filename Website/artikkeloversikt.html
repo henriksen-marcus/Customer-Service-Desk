@@ -7,6 +7,7 @@
 		</script>
 		<script src="JS/skaff_artikkel.js"></script>
 		<script src="JS/kategori_options.js"></script>
+		<script src="JS/skaff_sorts.js"></script>
 		<script>
 		// Disable autocomplete for all inputs, too lazy to do it in html
 		$(document).ready(function() {
@@ -18,6 +19,7 @@
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<title>Artikkeloversikt</title>
 	</head>
 	<body>
@@ -48,12 +50,24 @@
 				    <tr>
 				      <td><p>Beskrivelse:</p></td>
 				      <td><p>Hylle:</p></td>
+							<td><p>Sorter etter:</p></td>
 				    </tr>
 				    <tr>
 				      <td><textarea type="text" rows=1 maxlength="1500" id="beskrivelse"></textarea></td>
 				      <td><input type="text" placeholder="A001" id="hylle"/></td>
-				      <td><input type="submit" id="searchBtn" value="Søk"/></td>
+				      <td>
+								<select id="sorter" style="width: 51%; margin: 0;"></select>
+								<select id="sortOptn" style="width: 46%; margin: 0;">
+									<option value="ASC">Stigende</option>
+									<option value="DESC">Synkende</option>
+								</select>
+							</td>
 				    </tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td style="text-align: right;"><button type="submit" id="searchBtn" value="Søk">Søk</button></td>
+						</tr>
 				  </table>
 				</div>
 				<p id="errorField" style="text-align:center; color:red;"></p>

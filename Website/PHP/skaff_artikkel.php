@@ -11,6 +11,8 @@ if (isset($_POST['navn'])) {
   $beskrivelse = processData($_POST['beskrivelse']);
   $hylleBokstav = processData($_POST['hylleBokstav']);
   $hylleNr = processData($_POST['hylleNr']);
+  $sort_by = processData($_POST['sort_by']);
+  $sortOptn = processData($_POST['sortOptn']);
 
 	$sql = "SELECT * FROM ProduktListe WHERE";
 
@@ -41,6 +43,10 @@ if (isset($_POST['navn'])) {
     $hylle = $hylleBokstav . $hylleNr;
     addSQL("Hylle = $hylle");
   }
+
+
+  $sql = $sql . "ORDER BY " . $sort_by . " " . $sortOptn;
+
   $sqlPrint = json_encode($sql);
   echo "<script>console.log('SQL query: ' + $sqlPrint)</script>";
 

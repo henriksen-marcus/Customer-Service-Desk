@@ -47,7 +47,7 @@ body {
 
 #loadback tbody tr td {
   text-align: center;
-  padding: 2px 1px;
+  padding: 4px 2px;
   background-color: white;
 }
 
@@ -118,4 +118,11 @@ form
 {
   margin: 0;
   float: left;
+}
+
+#searchBtn
+{
+  width: 47%;
+  float right;
+  text-align: center;
 }
