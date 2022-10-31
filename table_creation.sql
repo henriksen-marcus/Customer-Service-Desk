@@ -2,138 +2,138 @@
 # Marcus Nesvik Henriksen
 # Jakob Irian Grønbeck
 
-CREATE database Jula;
+CREATE database jula;
 
-CREATE TABLE ProduktListe 
+CREATE TABLE produktListe
 (
-    ArtNr INT AUTO_INCREMENT,
-    Navn VARCHAR(50),
-    Pris DECIMAL(5,2),
-    Kategori INT,
-    Beskrivelse VARCHAR(20),
-    Antall INT, 
-    Hylle VARCHAR(4),
-    PRIMARY KEY (ArtNr),
-    FOREIGN KEY (Kategori) REFERENCES Kategori(bokstav)
+    artnr int(4) zerofill NOT NULL auto_increment,
+    navn VARCHAR(50),
+    pris DECIMAL(7,2),
+    kategori CHAR(1),
+    beskrivelse TEXT,
+    antall INT,
+    hylle VARCHAR(4),
+    PRIMARY KEY (artnr),
+    FOREIGN KEY (kategori) REFERENCES kategori(bokstav)
 );
 
-CREATE TABLE PrisHistorikk 
+CREATE TABLE prishistorikk
 (
-	ArtNr INT,
-    Pris DECIMAL(5,2),
-    Dato DATE, -- Tiden prisen ble endret til denne verdien
-    PRIMARY KEY (ArtNr),
-    FOREIGN KEY (ArtNr) REFERENCES ProduktListe(ArtNr)
+	artnr INT(6),
+    pris DECIMAL(7,2),
+    dato DATE, -- Tiden prisen ble endret til denne verdien
+    PRIMARY KEY (artnr),
+    FOREIGN KEY (artnr) REFERENCES produktliste(artnr)
 );
 
-CREATE TABLE Ordre 
+CREATE TABLE ordre
 (
-	OrdreNr INT AUTO_INCREMENT,
-    KundeNr INT,
-    Dato DATE,
-	Betalingsmetode VARCHAR(20),
-    Sum INT,
-    PRIMARY KEY (OrdreNr),
-    FOREIGN KEY (KundeNr) REFERENCES Medlem(KundeNr)
+	ordrenr INT(7) ZEROFILL AUTO_INCREMENT,
+    kundenr INT,
+    dato DATE,
+	betalingsmetode VARCHAR(20),
+    sum INT,
+    PRIMARY KEY (ordrenr),
+    FOREIGN KEY (kundenr) REFERENCES medlem(kundenr)
 );
 
-CREATE TABLE Ordrelinje 
+CREATE TABLE ordrelinje
 (
-	OrdreNr INT,
-	ArtNr INT,
-    Pris DECIMAL(5,2),
-    Antall INT,
-    PRIMARY KEY (OrdreNr, ArtNr),
-    FOREIGN KEY (OrdreNr) REFERENCES Ordre(OrdreNr),
-    FOREIGN KEY (ArtNr) REFERENCES ProduktListe(ArtNr)
+	ordrenr INT(7) ZEROFILL,
+	artnr INT(6),
+    pris DECIMAL(7,2),
+    antall INT,
+    PRIMARY KEY (ordrenr, artnr),
+    FOREIGN KEY (ordrenr) REFERENCES ordre(ordrenr),
+    FOREIGN KEY (artnr) REFERENCES produktliste(artnr)
 );
 
-CREATE TABLE Medlem 
+CREATE TABLE medlem
 (
-	KundeNr INT AUTO_INCREMENT,
-    Navn VARCHAR(50),
-    Adresse VARCHAR(50),
-    PostNr CHAR(4),
-    Epost VARCHAR(50),
-    Tlf VARCHAR(12),
-    Poeng INT,
-    Fødselsdato DATE,
-    Kommunikasjon BOOL, -- Får butikken lov å sende ut markedsføring
+	kundenr INT AUTO_INCREMENT,
+    navn VARCHAR(50),
+    adresse VARCHAR(50),
+    postnr CHAR(4),
+    epost VARCHAR(50),
+    tlf VARCHAR(12),
+    poeng INT,
+    fødselsdato DATE,
+    kommunikasjon BOOL, -- Får butikken lov å sende ut markedsføring
     
     #Faktura medlem, valgfritt
-    JulaSmart BOOL,
-	KredrittGrense INT,
-    Fødselsnr CHAR(11),
+    julasmart BOOL,
+	kredrittGrense INT,
+    fødselsnr CHAR(11),
     
-    PRIMARY KEY (KundeNr, Epost, Tlf),
-    FOREIGN KEY (PostNr) REFERENCES PostSted(PostNr)
+    PRIMARY KEY (kundenr, epost, tlf),
+    FOREIGN KEY (postnr) REFERENCES poststed(postNr)
 );
 
 
-CREATE TABLE Poststed
+CREATE TABLE poststed
 (
-  PostNr CHAR(4),
-  Stedsnavn VARCHAR(50) NOT NULL,
-  PRIMARY KEY (PostNr)
+  postnr CHAR(4),
+  stedsnavn VARCHAR(50) NOT NULL,
+  PRIMARY KEY (postnr)
 );
 
 
-CREATE TABLE Ansatt 
+CREATE TABLE ansatt
 (
-	AnsattNr INT AUTO_INCREMENT,
-    Tlf VARCHAR(12),
-	Navn VARCHAR(50),
-    Adresse VARCHAR(50),
-    Epost VARCHAR(50),
-    Fødselsdato DATE,
-    AnsettelsesDato DATE,
-    Kontrakt VARCHAR(20),
-    PRIMARY KEY (AnsattNr),
-    FOREIGN KEY (Tlf) REFERENCES Medlem(Tlf)
+	ansattnr INT AUTO_INCREMENT,
+    tlf VARCHAR(12),
+	navn VARCHAR(50),
+    adresse VARCHAR(50),
+    epost VARCHAR(50),
+    fødselsdato DATE,
+    ansettelsesdato DATE,
+    kontrakt VARCHAR(20),
+    PRIMARY KEY (ansattnr),
+    FOREIGN KEY (tlf) REFERENCES medlem(tlf)
 );
 
-CREATE TABLE Mottak 
+CREATE TABLE mottak
 (
-	Mottaksnr INT AUTO_INCREMENT,
-    SumVarer INT,
-    Dato DATE,
-    PRIMARY KEY (Mottaksnr)
+	mottaksnr INT AUTO_INCREMENT,
+    sumvarer INT,
+    dato DATE,
+    PRIMARY KEY (mottaksnr)
 );
 
-CREATE TABLE Mottaklinje 
+CREATE TABLE mottaklinje
 (
-	Mottaksnr INT AUTO_INCREMENT,
-	ArtNr INT,
-    Antall INT,
-    PRIMARY KEY (Mottaksnr, ArtNr),
-    FOREIGN KEY (Mottaksnr) REFERENCES Mottak(Mottaksnr)
+	mottaksnr INT AUTO_INCREMENT,
+	artnr INT(6),
+    antall INT,
+    PRIMARY KEY (mottaksnr, artnr),
+    FOREIGN KEY (mottaksnr) REFERENCES mottak(mottaksnr)
 );
 
-CREATE TABLE Service 
+CREATE TABLE service
 (
-	ServiceNr INT AUTO_INCREMENT,
-	Dato DATE,
-    Type VARCHAR(20),
-    Beskrivelse TEXT,
-    Sum INT,
-    PRIMARY KEY (ServiceNr)
+	servicenr INT AUTO_INCREMENT,
+	dato DATE,
+    type VARCHAR(20),
+    beskrivelse TEXT,
+    sum INT,
+    PRIMARY KEY (servicenr)
 );
 
-CREATE TABLE Servicelinje 
+CREATE TABLE servicelinje
 (
-	ServiceNr INT AUTO_INCREMENT,
-	ArtNr INT,
-    Navn VARCHAR(20),
-    Antall INT,
-    Pris DECIMAL,
-    PRIMARY KEY (ServiceNr, ArtNr),
-    FOREIGN KEY (ServiceNr) REFERENCES Service(ServiceNr),
-    FOREIGN KEY (ArtNr) REFERENCES Produktliste(ArtNr)
+	servicenr INT AUTO_INCREMENT,
+	artnr INT(6),
+    navn VARCHAR(20),
+    antall INT,
+    pris DECIMAL(7,2),
+    PRIMARY KEY (servicenr, artnr),
+    FOREIGN KEY (servicenr) REFERENCES service(servicenr),
+    FOREIGN KEY (artnr) REFERENCES produktliste(artnr)
 );
 
-CREATE TABLE Kategori 
+CREATE TABLE kategori
 (
-	KatNr INT AUTO_INCREMENT,
-	Navn VARCHAR(20),
-    PRIMARY KEY (KatNr)
+	bokstav CHAR(1),
+	navn VARCHAR(30),
+    PRIMARY KEY (bokstav)
 );
