@@ -11,7 +11,9 @@
       $sql = "SELECT * FROM ordre WHERE ordrenr = $orderNr";
       $ordreResult = mysqli_query($link, $sql);
 
-      if (mysqli_num_rows($ordreResult) < 1)
+      $fields = $ordreResult->fetch_fields();
+
+      if (mysqli_num_rows($ordreResult) > 0)
       {
         $sql = "SELECT
         ordrelinje.artnr,
@@ -20,16 +22,16 @@
         ordrelinje.antall
         FROM ordrelinje
         LEFT JOIN produktliste p on ordrelinje.artnr = p.artnr
-        WHERE ordrelinje.ordrenr = $ordrenr";
+        WHERE ordrelinje.ordrenr = $orderNr";
 
         $ordrelinjeResult = mysqli_query($link, $sql);
 
-        if (mysqli_num_rows($ordrelinjeResult) < 1)
+        if (mysqli_num_rows($ordrelinjeResult) > 0)
         {
           $ordreRad = mysqli_fetch_assoc($ordreResult);
 
           $return['success'] = true;
-          $return['ordreNr'] = $ordreRad['ordrenr'];
+          $return['ordreNr'] = $orderNr;
           $return['date'] = $ordreRad['dato'];
           $return['ordrelinje'] = fetchTable($link, $ordrelinjeResult);
         }

@@ -92,3 +92,19 @@ drop database jula;
 
 SELECT bokstav FROM kategori
 
+select * from ordre
+
+SELECT m.navn, o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
+FROM medlem m
+LEFT JOIN ordre o ON m.kundenr = o.kundenr
+LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr;
+
+SELECT o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
+           FROM medlem m
+           LEFT JOIN ordre o ON m.kundenr = o.kundenr
+           LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr
+           WHERE (SELECT kundenr FROM medlem WHERE tlf = 96621643 LIMIT 1)
+
+
+select tlf from medlem where tlf = 96621643
+

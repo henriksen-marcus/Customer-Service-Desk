@@ -30,9 +30,8 @@ CREATE TABLE ordre
 (
 	ordrenr INT(7) ZEROFILL AUTO_INCREMENT,
     kundenr INT,
-    dato DATE,
+    dato DATETIME DEFAULT CURRENT_TIMESTAMP,
 	betalingsmetode VARCHAR(20),
-    sum INT,
     PRIMARY KEY (ordrenr),
     FOREIGN KEY (kundenr) REFERENCES medlem(kundenr)
 );

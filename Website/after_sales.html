@@ -6,7 +6,18 @@
 			crossorigin="anonymous">
 		</script>
     <script src="JS/after_sales_buttons.js"></script>
-    <script src="JS/search_ordre.js"></script>
+    <script src="JS/last_ordre.js"></script>
+		<script>
+		// OK button on error popup
+		$(document).ready(function(){
+			$("#errorOkBtn").click(function(){
+				$("#darkenBackground").hide();
+				$("#searchPopup").hide();
+        $("#errorPopup").hide();
+        $("#errorText").html("");
+			});
+		});
+		</script>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
@@ -67,10 +78,23 @@
 
     <div id="darkenBackground">
       <div id="searchPopup">
-
+				<table>
+					<tr>
+						<td> <span>Kundenr:</span> <span id="KundeNrResult"></span> </td>
+						<td> <div style="float:right"><span>Dato:</span> <span id="DatoResultOrdreSearch"></span></div> </td>
+					</tr>
+					<tr>
+						<td> <span>Navn:</span> <span id="NavnResult"></span> </td>
+						<td> <div style="float:right"><span>Adresse:</span> <span id="adresseResult"></span></div> </td>
+					</tr>
+					<tr>
+						<td> <span>Tlf:</span> <span id="tlfNrResult"></span> </td>
+					</tr>
+				</table>
         <div id="ordresearch">
           <h3>Søkeresultater:</h3>
           <br>
+					<div id="ordresearchresults" class="dataTable"></div>
         </div>
 
         <div id="ordreDetaljer">
@@ -78,17 +102,18 @@
           <table>
             <tr>
               <td> <span>Ordrenr:</span> <span id="OrdreNrResult"></span> </td>
-              <td> <span>Dato:</span> <span id="DatoResult"></span> </td>
+              <td> <div style="float:right"><span>Dato:</span> <span id="DatoResult"></span></div> </td>
             </tr>
           </table>
           <br>
-          <span style="float:left; font-weight: bold;">Kjøpte artikler:</span>
-          <br>
-          <div id="ordrelinje"></div>
-          <br>
-          <button class="prettyButtons" id="ordreDetaljerReturBtn">Retur</button>
-          <button class="prettyButtons" id="ordreDetaljerReklamasjonBtn">Reklamasjon</button>
-        </div>
+					<div id="ordrelinjeContainer">
+	          <p style="font-weight:bold;margin-bottom:5px">Kjøpte artikler:</p>
+	          <div id="ordrelinje" class="dataTable"></div>
+	          <br>
+	          <button class="prettyButtons" id="ordreDetaljerReturBtn">Retur</button>
+	          <button class="prettyButtons" id="ordreDetaljerReklamasjonBtn">Reklamasjon</button>
+					</div>
+				</div>
 
         <div id="artikkelsearch">
           <label>Artikkelnavn:</label><br>
@@ -101,18 +126,19 @@
           <button class="prettyButtons" id="artNrReturBtn">Retur</button>
           <button class="prettyButtons" id="artNrReklamasjonBtn">Reklamasjon</button>
         </div>
-
-
       </div>
+
 			<div id="errorPopup">
-				<h2>Error:</h2>
+				<h2>Feil:</h2>
 				<p id="errorText"></p><br>
-				<button class="prettyButtons">Ok</button>
+				<button class="prettyButtons" id="errorOkBtn">Ok</button>
 			</div>
+
+
+
     </div>
+		<div id="debug">
 
-
-
-
+		</div>
 	</body>
 </html>
