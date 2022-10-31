@@ -90,3 +90,5 @@ SELECT
 
 drop database jula;
 
+SELECT bokstav FROM kategori
+

@@ -14,12 +14,12 @@
       if (mysqli_num_rows($ordreResult) < 1)
       {
         $sql = "SELECT
-        ordrelinje.ArtNr,
-        p.Navn,
-        ordrelinje.Pris,
-        ordrelinje.Antall
+        ordrelinje.artnr,
+        p.navn,
+        ordrelinje.pris,
+        ordrelinje.antall
         FROM ordrelinje
-        LEFT JOIN produktliste p on ordrelinje.ArtNr = p.ArtNr
+        LEFT JOIN produktliste p on ordrelinje.artnr = p.artnr
         WHERE ordrelinje.ordrenr = $ordrenr";
 
         $ordrelinjeResult = mysqli_query($link, $sql);
@@ -29,8 +29,8 @@
           $ordreRad = mysqli_fetch_assoc($ordreResult);
 
           $return['success'] = true;
-          $return['ordreNr'] = $ordreRad['OrdreNr'];
-          $return['date'] = $ordreRad['Dato'];
+          $return['ordreNr'] = $ordreRad['ordrenr'];
+          $return['date'] = $ordreRad['dato'];
           $return['ordrelinje'] = fetchTable($link, $ordrelinjeResult);
         }
         else

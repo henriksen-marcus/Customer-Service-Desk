@@ -19,7 +19,13 @@ INSERT INTO kategori (Bokstav, Navn) VALUES
         ('G', 'Bil og garasje'),
         ('H', 'Hjem og husholdning');
 
-INSERT INTO mottak (SumVarer, Dato) VALUES (1000, '1000-01-01'),
-                                           (2499, '2052-01-01'),
-                                           (4499, '2062-01-01'),
-                                           (66499, '2072-01-01');
+INSERT INTO mottak (SumVarer, Dato) VALUES (19400.20, '2020-01-28'),
+                                           (24290.80, '2020-02-25'),
+                                           (5200, '2020-06-02'),
+                                           (62700, '2021-01-02');
+
+INSERT INTO mottaklinje VALUES (1,000001,20),
+                               (1,000002, 40),
+                               (1,000003,5),
+                               (2,000002, 15),
+                               (2,000004,2);

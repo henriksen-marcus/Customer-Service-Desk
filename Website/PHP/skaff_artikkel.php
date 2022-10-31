@@ -14,7 +14,7 @@ if (isset($_POST['navn'])) {
   $sort_by = processData($_POST['sort_by']);
   $sortOptn = processData($_POST['sortOptn']);
 
-	$sql = "SELECT * FROM ProduktListe WHERE";
+	$sql = "SELECT * FROM produktliste WHERE";
 
   function addSQL($str)
   {
@@ -27,21 +27,21 @@ if (isset($_POST['navn'])) {
     $sql = $sql . " " . $str . " ";
   }
 
-  if (!empty($navn)) { addSQL("Navn LIKE '%$navn%'"); }
-  if (!empty($kategori)) { addSQL("Kategori = '$kategori'"); }
-  if (!empty($beskrivelse)) { addSQL("Beskrivelse LIKE '%$beskrivelse%'"); }
+  if (!empty($navn)) { addSQL("navn LIKE '%$navn%'"); }
+  if (!empty($kategori)) { addSQL("kategori = '$kategori'"); }
+  if (!empty($beskrivelse)) { addSQL("beskrivelse LIKE '%$beskrivelse%'"); }
   if (!empty($pris))
   {
     // More forgiving search for price, user doesn't have
-    // to remember decimal values.
+    // to remember decimal values.;
     $prisMod = number_format($pris, 0, '.', '');
-    $prisModPlus = $prisMod + 1;
-    addSQL("Pris BETWEEN $prisMod AND $prisModPlus");
+    $prisModPlus = number_format($pris + 1, 0, '.', '');
+    addSQL("pris BETWEEN $prisMod AND $prisModPlus");
   }
   if (!empty($hylleNr))
   {
     $hylle = $hylleBokstav . $hylleNr;
-    addSQL("Hylle = $hylle");
+    addSQL("hylle = $hylle");
   }
 
 

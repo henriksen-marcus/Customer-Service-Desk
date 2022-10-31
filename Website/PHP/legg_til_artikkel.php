@@ -32,13 +32,13 @@ if (isset($_POST['navn']))
   // Check category for errors
   if (!isset($kategori)) { $kategoriError = true; }
 
-  $sql = "SELECT Bokstav FROM Kategori;";
+  $sql = "SELECT bokstav FROM kategori";
   $resultat = mysqli_query($link, $sql);
 
   for ($i = 0; $i < mysqli_num_rows($resultat); $i++)
   {
     $rad = mysqli_fetch_assoc($resultat);
-    $val = $rad["Bokstav"];
+    $val = $rad["bokstav"];
     // If the category is valid
     if ($kategori == $val)
     {
@@ -66,7 +66,7 @@ if (isset($_POST['navn']))
     $resultat = mysqli_query($link, $sql);
     for ($i = 0; $i < mysqli_num_rows($resultat); $i++)
     {
-      $val = $resultat->fetch_assoc()["Bokstav"];
+      $val = $resultat->fetch_assoc()["bokstav"];
       // If the category is valid
       if ($hylleBokstav == $val)
       {

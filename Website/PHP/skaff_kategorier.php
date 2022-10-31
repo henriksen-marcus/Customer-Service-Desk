@@ -11,7 +11,7 @@
   {
     $rad = mysqli_fetch_assoc($resultat);
     $val = $rad["bokstav"];
-    $navn = $rad["Navn"];
+    $navn = $rad["navn"];
     echo "<option value='$val'>$val - $navn</option>";
     $index++;
   }

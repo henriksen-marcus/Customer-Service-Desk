@@ -2,11 +2,11 @@
 # Marcus Nesvik Henriksen
 # Jakob Irian Grønbeck
 
-CREATE database jula;
+CREATE DATABASE jula;
 
 CREATE TABLE produktListe
 (
-    artnr int(4) zerofill NOT NULL auto_increment,
+    artnr INT(6) ZEROFILL AUTO_INCREMENT,
     navn VARCHAR(50),
     pris DECIMAL(7,2),
     kategori CHAR(1),
@@ -40,7 +40,7 @@ CREATE TABLE ordre
 CREATE TABLE ordrelinje
 (
 	ordrenr INT(7) ZEROFILL,
-	artnr INT(6),
+	artnr INT(6) ZEROFILL,
     pris DECIMAL(7,2),
     antall INT,
     PRIMARY KEY (ordrenr, artnr),
@@ -62,7 +62,7 @@ CREATE TABLE medlem
     
     #Faktura medlem, valgfritt
     julasmart BOOL,
-	kredrittGrense INT,
+	kredrittgrense INT,
     fødselsnr CHAR(11),
     
     PRIMARY KEY (kundenr, epost, tlf),
@@ -95,7 +95,7 @@ CREATE TABLE ansatt
 CREATE TABLE mottak
 (
 	mottaksnr INT AUTO_INCREMENT,
-    sumvarer INT,
+    sumvarer DECIMAL(8,2),
     dato DATE,
     PRIMARY KEY (mottaksnr)
 );
@@ -103,7 +103,7 @@ CREATE TABLE mottak
 CREATE TABLE mottaklinje
 (
 	mottaksnr INT AUTO_INCREMENT,
-	artnr INT(6),
+	artnr INT(6) ZEROFILL,
     antall INT,
     PRIMARY KEY (mottaksnr, artnr),
     FOREIGN KEY (mottaksnr) REFERENCES mottak(mottaksnr)
@@ -122,7 +122,7 @@ CREATE TABLE service
 CREATE TABLE servicelinje
 (
 	servicenr INT AUTO_INCREMENT,
-	artnr INT(6),
+	artnr INT(6) ZEROFILL,
     navn VARCHAR(20),
     antall INT,
     pris DECIMAL(7,2),

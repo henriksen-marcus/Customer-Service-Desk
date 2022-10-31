@@ -4,7 +4,7 @@
 
 
   $sql = "SELECT *FROM INFORMATION_SCHEMA.COLUMNS
-  WHERE TABLE_NAME = 'Produktliste';";
+  WHERE TABLE_NAME = 'produktliste';";
 
   $result = mysqli_query($link, $sql);
 
