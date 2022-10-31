@@ -126,3 +126,155 @@ form
   float right;
   text-align: center;
 }
+
+.DropDownContainer
+{
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 50px;
+}
+
+.DropDown
+{
+  height: 50px;
+  background-color: rgb(151, 200, 236);
+  line-height: 50px;
+  vertical-align: middle;
+}
+
+.DropDown span
+{
+  color: white;
+  font-family: 'Trebuchet MS';
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 15px;
+}
+
+.DropDown img
+{
+  float: right;
+  height: 25px;
+  margin: 10px;
+}
+
+.DropDown img:hover
+{
+  cursor: pointer;
+}
+
+.DropDownContent
+{
+  background-color: rgb(245, 245, 245);
+  padding: 10px;
+}
+
+.DropDownContent label
+{
+  margin-right: 5px;
+}
+
+#darkenBackground
+{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.44);
+  overflow: hidden;
+  display: none;
+}
+
+#searchPopup
+{
+  position: absolute;
+  width: 50%;
+  height: 70%;
+  background: white;
+  border-radius: 20px;
+  z-index: 10;
+  padding: 20px;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Trebuchet MS';
+  display: none;
+}
+
+#ordreDetaljer
+{
+  display: none;
+}
+
+#ordreDetaljer button
+{
+  float: right;
+}
+
+#ordreDetaljer span
+{
+  margin-left: 5px;
+}
+
+#ordreDetaljer table
+{
+  width: 100%;
+  border:1px solid black;
+}
+
+#ordrelinje
+{
+  border: 1px solid green;
+  height: 50%;
+  width: 100%;
+}
+
+#ordreDetaljer
+{
+  display: none;
+}
+
+#artikkelsearch
+{
+  display: none;
+}
+
+.prettyButtons
+{
+  width: 100px;
+  height: 40px;
+  background: rgb(90, 180, 83);
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px;
+  border: none;
+}
+
+.prettyButtons:hover
+{
+  background: rgb(80, 159, 73);
+  cursor: pointer;
+}
+
+#errorPopup
+{
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  background: white;
+  border-radius: 20px;
+  z-index: 12;
+  padding: 10px;
+  text-align: center;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Trebuchet MS';
+  display: none;
+}

@@ -28,7 +28,6 @@ $(document).ready(function() {
           hyllenr: hyllenr
         },
         success: function (result) {
-          console.log(result);
             if (result[0] == "1")
             {
               $("#resultContainer").add("p").html("Lagt til i databasen.").css("color", "green");

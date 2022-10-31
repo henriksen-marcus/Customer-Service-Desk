@@ -8,6 +8,7 @@
     return $data;
   }
 
+
   function printTable($link, $result)
   {
     if (mysqli_num_rows($result) < 1)
@@ -43,5 +44,47 @@
     }
     echo "</tbody>";
     echo "</table>";
+  }
+
+
+  function fetchTable ($link, $result)
+  {
+    if (mysqli_num_rows($result) < 1)
+    {
+      return;
+    }
+
+    $fields = $result->fetch_fields();
+    $cols = mysqli_field_count($link);
+
+    $return = "";
+
+    $return = $return . "<table>";
+    $return = $return . "<thead>";
+
+    $loops = 0;
+    // Print the first row (name of columns)
+    while ($loops < $cols)
+    {
+      $nameStr = ucfirst($fields[$loops]->name);
+      $return = $return . "<th>$nameStr</th>";
+      $loops++;
+    }
+    $return = $return . "</thead>";
+    $return = $return . "<tbody>";
+
+    while ($rad = mysqli_fetch_row($result))
+    {
+      $return = $return . "<tr>";
+      for ($i = 0; $i < $cols; $i ++)
+      {
+        $return = $return . "<td>$rad[$i]</td>";
+      }
+      $return = $return . "</tr>";
+    }
+    $return = $return . "</tbody>";
+    $return = $return . "</table>";
+
+    return $return;
   }
 ?>

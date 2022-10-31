@@ -1,0 +1,118 @@
+<html lang="en">
+	<head>
+		<script
+			src="https://code.jquery.com/jquery-3.6.1.min.js"
+			integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+			crossorigin="anonymous">
+		</script>
+    <script src="JS/after_sales_buttons.js"></script>
+    <script src="JS/search_ordre.js"></script>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="CSS/stylesheet.css"/>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<title>After Sales</title>
+	</head>
+	<body>
+		<div class="backContainer">
+			<button class="backBtn" onclick="window.location.href='http://localhost/Website/';">
+			< Tilbake</button>
+		</div>
+    <a href="http://localhost/Website/">
+			<img id="logo" src="https://i.imgur.com/oyQFzWx.png" alt="Jula Kundeservice">
+		</a>
+	  <div id="wrapper">
+      <h3 style="text-align: center;">Søk ordre:</h3>
+      <br>
+      <div class="DropDownContainer">
+        <div class="DropDown" id="ordreIdDropDown">
+          <span>Søk med ordrenummer</span>
+          <img src="arrow.png" alt="show" id="b1">
+        </div>
+        <div class="DropDownContent">
+          <label>Ordrenummer:</label>
+          <input type="number" id="ordreNr"/>
+          <button id="submitOrdreId">Søk</button>
+					<br>
+					<span class="errorMsg"></span>
+        </div>
+      </div>
+
+      <br><br>
+      <div class="DropDownContainer">
+        <div class="DropDown" id="kundeDropDown">
+          <span>Søk kunde</span>
+          <img src="arrow.png" alt="show" id="b2">
+        </div>
+        <div class="DropDownContent">
+          <label>Telefonnummer:</label>
+          <input type="number" id="tlfNr"/>
+          <button id="submitTlfNr">Søk</button>
+        </div>
+      </div>
+
+      <br><br>
+      <div class="DropDownContainer">
+        <div class="DropDown" id="utenKvitteringDropDown">
+          <span>Uten kvittering</span>
+          <img src="arrow.png" alt="show" id="b3">
+        </div>
+        <div class="DropDownContent">
+          <label>Artikkelnummer:</label>
+          <input type="number" id="artikkelNr"/>
+          <button id="submitArtNr">Søk</button>
+        </div>
+      </div>
+	  </div>
+
+    <div id="darkenBackground">
+      <div id="searchPopup">
+
+        <div id="ordresearch">
+          <h3>Søkeresultater:</h3>
+          <br>
+        </div>
+
+        <div id="ordreDetaljer">
+          <h3>Ordredetaljer:</h3>
+          <table>
+            <tr>
+              <td> <span>Ordrenr:</span> <span id="OrdreNrResult"></span> </td>
+              <td> <span>Dato:</span> <span id="DatoResult"></span> </td>
+            </tr>
+          </table>
+          <br>
+          <span style="float:left; font-weight: bold;">Kjøpte artikler:</span>
+          <br>
+          <div id="ordrelinje"></div>
+          <br>
+          <button class="prettyButtons" id="ordreDetaljerReturBtn">Retur</button>
+          <button class="prettyButtons" id="ordreDetaljerReklamasjonBtn">Reklamasjon</button>
+        </div>
+
+        <div id="artikkelsearch">
+          <label>Artikkelnavn:</label><br>
+          <p id="artikkelNavnResult"></p><br>
+          <label>Artikkelnummer</label><br>
+          <p id="artikkelNrResult"></p><br>
+          <label>Kjøpspris:</label>
+          <input type="number" id="prisResult"/>
+          <br>
+          <button class="prettyButtons" id="artNrReturBtn">Retur</button>
+          <button class="prettyButtons" id="artNrReklamasjonBtn">Reklamasjon</button>
+        </div>
+
+
+      </div>
+			<div id="errorPopup">
+				<h2>Error:</h2>
+				<p id="errorText"></p><br>
+				<button class="prettyButtons">Ok</button>
+			</div>
+    </div>
+
+
+
+
+	</body>
+</html>

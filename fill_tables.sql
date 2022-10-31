@@ -6,14 +6,14 @@ INSERT INTO ProduktListe (Navn, Pris, Kategori, Beskrivelse, Antall, Hylle)
 
 ALTER TABLE produktliste MODIFY Beskrivelse TEXT;
 
-ALTER TABLE produktliste MODIFY pris DECIMAL(7,2);
+ALTER TABLE ordrelinje MODIFY pris DECIMAL(7,2);
 
 SELECT * FROM produktliste;
 
 
 SELECT * FROM Kategori;
 
-TRUNCATE TABLE Kategori;
+TRUNCATE TABLE ordrelinje;
 
 INSERT INTO kategori (Navn) VALUES ('Verktøy og maskiner');
 
@@ -75,3 +75,30 @@ SELECT * FROM ProduktListe;
 SELECT *
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'Produktliste';
+
+INSERT INTO ordre (Sum, Dato) VALUES (1000, '1000-01-01'),
+                                           (2499, '2052-01-01'),
+                                           (4499, '2062-01-01'),
+                                           (66499, '2072-01-01');
+
+SELECT * FROM ordre;
+
+INSERT INTO ordrelinje (OrdreNr, ArtNr, Pris, Antall) VALUES (1, 1, 349.00, 1),
+                                                             (1, 13, 149.00, 2),
+                                                             (1, 4, 1299.00, 50);
+
+SELECT ordrelinje.ArtNr, ProdListe.Navn, ordrelinje.Pris,  ordrelinje.Antall
+FROM ordrelinje
+LEFT JOIN produktliste ProdListe on ordrelinje.ArtNr = ProdListe.ArtNr;
+
+SELECT * FROM ordrelinje;
+
+SELECT
+        ordrelinje.ArtNr,
+        ordrelinje.ordrenr,
+        p.Navn,
+        ordrelinje.Pris,
+        ordrelinje.Antall
+        FROM ordrelinje
+        LEFT JOIN produktliste p on ordrelinje.ArtNr = p.ArtNr
+        WHERE ordrelinje.ordrenr = 2;
