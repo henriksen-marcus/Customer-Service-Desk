@@ -16,15 +16,13 @@ $(document).ready(function(){
         cache: false,
         success: function(){
           $("#success").html('Data added successfully');
-
-      },
-      error: function( jqXHR, textStatus, errorThrown ){
+        },
+        error: function( jqXHR, textStatus, errorThrown ){
         console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
-      }
+        }
       });
-
     }
     else {
       alert("Please fill inn all the fields");
