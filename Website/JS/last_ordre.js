@@ -44,6 +44,7 @@ $(document).ready(function() {
           $("#OrdreNrResult").html(responseObj.ordreNr);
           $("#DatoResult").html(responseObj.date);
           $("#ordrelinje").html(responseObj.ordrelinje);
+
           popup.show();
           $("#searchPopup").show();
           $("#ordreDetaljer").show();
@@ -84,12 +85,21 @@ $(document).ready(function() {
         responseObj = jQuery.parseJSON(response);
         if (responseObj.success)
         {
-          $("#KundeNrResult").html(responseObj.kundnr);
-          $("#DatoResultOrdreSearch").html(responseObj.dato);
-          $("#NavnResult").html(responseObj.navn);
-          $("#adresseResult").html(responseObj.adresse);
-          $("#tlfNrResult").html(responseObj.tlf);
-          $("#ordresearchresults").html(responseObj.ordreliste);
+          // $("#KundeNrResult").html(responseObj.kundenr);
+          // $("#NavnResult").html(responseObj.navn);
+          // $("#adresseResult").html(responseObj.adresse);
+          // $("#tlfNrResult").html(responseObj.tlf);
+          // $("#ordresearchresults").html(responseObj.ordreliste);
+
+          var $table = $("<table>");
+          $table.append("<tr>").append("<td>").text("Kundenr: " + responseObj.kundenr);
+          $table.append("<tr>").append("<td>").text(responseObj.navn);
+
+        //  $tr2.append("<td>").html(responseObj.tlf);
+        //  $tr2.append("<td>").html(responseObj.adresse);
+          console.log($table);
+
+          $("#ordresearch").prepend($table);
 
           popup.show();
           $("#searchPopup").show();

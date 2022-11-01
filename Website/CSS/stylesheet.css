@@ -210,6 +210,11 @@ form
   display: none;
 }
 
+#ordresearch table
+{
+  border: 1px solid blue;
+}
+
 #ordreDetaljer
 {
   display: none;

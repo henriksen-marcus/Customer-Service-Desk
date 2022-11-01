@@ -4,7 +4,7 @@
 
 CREATE DATABASE jula;
 
-CREATE TABLE produktListe
+CREATE TABLE produktliste
 (
     artnr INT(6) ZEROFILL AUTO_INCREMENT,
     navn VARCHAR(50),
