@@ -36,6 +36,8 @@ CREATE TABLE ordre
     FOREIGN KEY (kundenr) REFERENCES medlem(kundenr)
 );
 
+ALTER TABLE ordre ADD COLUMN servicenr
+
 CREATE TABLE ordrelinje
 (
 	ordrenr INT(7) ZEROFILL,
@@ -110,7 +112,7 @@ CREATE TABLE mottaklinje
 
 CREATE TABLE service
 (
-	servicenr INT AUTO_INCREMENT,
+	servicenr INT(6) ZEROFILL AUTO_INCREMENT,
 	dato DATE,
     type VARCHAR(20),
     beskrivelse TEXT,
@@ -120,9 +122,8 @@ CREATE TABLE service
 
 CREATE TABLE servicelinje
 (
-	servicenr INT AUTO_INCREMENT,
+	servicenr INT(6) ZEROFILL,
 	artnr INT(6) ZEROFILL,
-    navn VARCHAR(20),
     antall INT,
     pris DECIMAL(7,2),
     PRIMARY KEY (servicenr, artnr),

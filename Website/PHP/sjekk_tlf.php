@@ -63,7 +63,7 @@
         else
         {
           $return['success'] = false;
-          $return['error'] = "Noe rart har skjedd....";
+          $return['error'] = "Nummeret $tlfNr finnes ikke hos noen aktive medlem.";
         }
       }
       else

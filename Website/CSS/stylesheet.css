@@ -25,16 +25,22 @@ body {
   margin-top: 45px;
 }
 
+.dataTable
+{
+  overflow: scroll;
+}
+
 .dataTable table {
-  background-color: rgba(0, 0, 0, 0.09);
-  padding: 2px;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1px;
   margin: auto;
+  width: 100%;
 }
 
 .dataTable thead {
-  cursor: pointer;
   background: #c9dff0;
 }
+
 .dataTable thead tr th {
   font-weight: bold;
   padding: 6px 15px;
@@ -53,6 +59,17 @@ body {
 
 .dataTable tbody tr td.lalign {
   text-align: left;
+}
+
+.dataTable td
+{
+  min-width: 70px;
+  padding: 0 2px 0 2px;
+}
+
+.orderListRow:hover
+{
+  cursor: pointer;
 }
 
 .formWrapper
@@ -210,9 +227,22 @@ form
   display: none;
 }
 
-#ordresearch table
+.userInfoTable
 {
-  border: 1px solid blue;
+  margin: 10 auto;
+  table-layout: fixed;
+  width: 60%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 6px;
+  border-collapse: separate;
+  border-spacing: 20px 0;
+}
+
+.userInfoTable td
+{
+  width: 100%;
 }
 
 #ordreDetaljer
@@ -225,14 +255,9 @@ form
   float: right;
 }
 
-#ordreDetaljer span
-{
-  margin-left: 5px;
-}
-
 #ordreDetaljer table
 {
-  width: 85%;
+  width: 80%;
   margin: 0 auto;
 }
 
@@ -298,4 +323,14 @@ form
 #ordresearchresults
 {
   width: 85%;
+}
+
+.tdSelected
+{
+  background-color: rgba(81, 181, 100, 0.44) !important;
+}
+
+.orderListRow:hover td
+{
+  background: rgba(0, 0, 0, 0.05);
 }

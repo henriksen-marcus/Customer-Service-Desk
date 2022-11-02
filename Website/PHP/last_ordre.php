@@ -31,7 +31,7 @@
           $ordreRad = mysqli_fetch_assoc($ordreResult);
 
           $return['success'] = true;
-          $return['ordreNr'] = $orderNr;
+          $return['ordrenr'] = $orderNr;
           $return['date'] = $ordreRad['dato'];
           $return['ordrelinje'] = fetchTable($link, $ordrelinjeResult);
         }

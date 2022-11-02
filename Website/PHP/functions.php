@@ -35,7 +35,8 @@
 
     while ($rad = mysqli_fetch_row($result))
     {
-      echo "<tr>";
+      $data = $rad[0];
+      echo "<tr id='php$data'>";
       for ($i = 0; $i < $cols; $i ++)
       {
         echo "<td>$rad[$i]</td>";
@@ -75,7 +76,8 @@
 
     while ($rad = mysqli_fetch_row($result))
     {
-      $return = $return . "<tr>";
+      $data = $rad[0];
+      $return = $return . "<tr id='php$data'>";
       for ($i = 0; $i < $cols; $i ++)
       {
         $return = $return . "<td>$rad[$i]</td>";
