@@ -12,6 +12,7 @@ function requestDelivery()
 
 // Request delivery history
 $("#mottakbtn").click(function(){
+  $("#mottakbtn").prop('disabled', true);
   // Show load more button if we haven't loaded anything yet
   if (!loadCount)
   {

@@ -1,21 +1,25 @@
 $(document).ready(function(){
   $("form").submit(function(event){
     event.preventDefault();
-    var mlnr = $('#mottaksnr').val();
-    var sumvarer = $('#sumvarer').val();
-    var dato = $('#dato').val();
-    if (mlnr && sumvarer && dato) {
+    var sumvarer = $("#sumvarer").val();
+    console.log($("#sumvarer"));
+    console.log("Yeet baboon");
+    if (sumvarer) {
       $.ajax({
         url: "./PHP/save_mottak.php",
         type: "POST",
         data: {
-          mlnr: mlnr,
-          sumvarer: sumvarer,
-          dato: dato
+          sumvarer: sumvarer
         },
-        cache: false,
-        success: function(){
-          $("#success").html('Data added successfully');
+        success: function(response){
+          console.log(response);
+          var r = JSON.parse(response);
+          if (r.success) {
+            $("#success").html('Data added successfully');
+          }
+          else {
+            $("#success").html('Data not added' + r.error);
+          }
         },
         error: function( jqXHR, textStatus, errorThrown ){
         console.log(jqXHR);
@@ -25,7 +29,7 @@ $(document).ready(function(){
       });
     }
     else {
-      alert("Please fill inn all the fields");
+      console.log($('#sumvarer').val());
     }
   });
 });

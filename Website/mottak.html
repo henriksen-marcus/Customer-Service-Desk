@@ -26,14 +26,8 @@
         <div id="wrapper" style="width: 200px;">
           <div class="formWrapper">
             <form>
-              <label for="mottaksnr">Mottaknr:</label><br>
-              <input id="mottaksnr" type="text" name="mottaksnr" autofocus>*
-              <br>
               <label for="Sum varer">Sum varer:</label><br>
-              <input id="sumvarer" type="text" name="sum varer" autofocus>*
-              <br>
-              <label for="dato">Dato:</label><br>
-              <input id="dato" type="text" name="Dato" autofocus>*
+              <input id="sumvarer" type="number" autofocus>*
               <br>
               <button id="lagremottak" type="submit" name="submit" style="margin-top: 5px">Legg til mottak</button>
               <br>
@@ -43,7 +37,7 @@
             </div>
           </div>
           <br><br>
-          <div id="loadback"></div>
+          <div id="loadback" class="dataTable"></div>
           <button id="loadMoreBtn" style="display:none;">Last flere...</button>
         </div>
 

@@ -97,7 +97,7 @@ CREATE TABLE mottak
 (
 	mottaksnr INT AUTO_INCREMENT,
     sumvarer DECIMAL(8,2),
-    dato DATE,
+    dato DATETIME DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (mottaksnr)
 );
 
@@ -118,7 +118,7 @@ CREATE TABLE service
     PRIMARY KEY (servicenr),
     FOREIGN KEY (ordrenr) REFERENCES ordre(ordrenr)
 );
-DROP TABLE service
+
 CREATE TABLE servicelinje
 (
 	servicenr INT(6) ZEROFILL,
