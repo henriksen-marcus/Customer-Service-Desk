@@ -2,58 +2,72 @@
 include 'connect.php';
 include 'functions.php';
 
-//ER428
-// Her må du ha en sjekk om vi får data fra jquery i det hele tatt,
-// se 'mottak_php.php' linje 7. hvis vi bruker en verdi vi ikke får
-// krasjer koden
+$return = array();
 
-$mlnr = processData($_POST['mlnr']);
-$sumvarer = processData($_POST['sumvarer']);
-$dato = processData($_POST['dato']);
+$mlnrerror = false;
+$sumvarererror = false;
+$datoerror = false;
 
-//php check date
+if (isset($_POST['mlnr']))
+{
 
-//ER428
-// Ikke bruk '' inni ""..
-// Du skriver allerede inne i anførselstegn. Skriv kolonnenavnet direkte
-$sql = "INSERT INTO mottak (`mottaksnr`, `sumvarer`, `dato`) VALUES ($mlnr, $sumvarer, $dato);";
-//ER428
-// Bruk helst "result" som mysqli_query navn, det er standard
-$success = mysqli_query($link, $sql);
+  $mlnr = processData($_POST['mlnr']);
+  $sumvarer = processData($_POST['sumvarer']);
+  $sumvarer = processData($_POST['dato']);
 
-//ER428
-// if($success) - Du trenger ikke "==TRUE"
-if ($success==TRUE) {
-  echo "Data inserted!";
-  //ER428
-  // Du kopierte koden min direkte.. du må jo endre "$bool" til booleanen
-  // du vil sjekke
-  // Her får du error fordi det er ingen variablel $bool definert
-  // Dessuten vil dette aldri kjøre hvis veriden er false fordi det er inni en
-  // if setning
-  echo "<script>console.log($bool)</script>";
+  if (empty($mlnr)) { $mlnrerror = true; }
+  if (empty($sumvarer)) { $sumvarererror = true; }
+  if (empty($dato)) { $datoerror = true; }
+
+
+  $sql = "INSERT INTO mottak (mottaksnr, sumvarer, dato) VALUES ($mlnr, $sumvarer, $dato);";
+  $result = mysqli_query($link, $sql);
+
+
+  if ($result) {
+
+      $result = mysqli_query($link, $sql);
+      $rad = $result->fetch_assoc();
+
+      $return['mlnr'] = $rad['mlnr'];
+      $return['sumvarer'] = $rad['sumvarer'];
+      $return['dato'] = $rad['dato'];
+      $return['success'] = true;
+
+
+      }
+      else {
+        $return['success'] = false;
+        $return['error'] = "Mottak ikke akseptert";
+
+      }
+      if ($mlnrerror || $sumvarererror || $datoerror) {
+
+        echo json_encode(array($mlnrerror, $sumvarererror, $datoerror));
+      }
+      else {
+        $data = array();
+        $data += array("mottaknr" => $mlnr);
+        $data += array("sumvarer" => $sumvarer);
+        $data += array("dato" => $dato);
+
+        $key = array_keys($data);
+        $val = array_values($data);
+
+        $sql = "INSERT INTO mottak (" . implode(', ', $key) . ")"
+              . "VALUES ('" . implode("', '", $val) . "')";
+              if (mysqli_query($link, $sql)) { echo "1"; die; }
+              else { $return['success'] = false; }
+      }
 }
 else {
-  echo "Failed!";
+  $return['success'] = false;
 }
-//ER428
-// Vi bruker ikke headers siden vi bruker ajax som laster inn
-// php direkte uten å reloade sida. Fjern
-header("Location: ../mottak.html?mottak=success");
 
-//ER428
-// Tips: Bruk JSON til å kommunisere mellom jQuery og PHP
-// Se hvordan jeg bruker $return i 'sjekk_tlf.php'.
-
-// $return = array(); Lag array
-// $return['someIndexName'] = someValue; Lag en index som heter 'someIndexName'
-// og sett den lik someValue
-// $return['someIndexName'] = newValue; Oppdater verdien, hvis du trenger det
-// Når du er ferdig, bruk 'echo json_encode($return)'.
-// Da gjør php arrayen om til JSON, som du kan dekode i jQuery
 
 // I jQuery: se 'last_ordre.php' linje 37 og ned
 // Bruk jQuery.parseJSON(response) til å lage et objekt av arrayen du fikk fra php
 // Så kan du bare kalle på variablene i klasseobjektet, slik som vi gjør i c++
 
+    echo json_encode($return);
 ?>
