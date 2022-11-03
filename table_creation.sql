@@ -113,19 +113,18 @@ CREATE TABLE mottaklinje
 CREATE TABLE service
 (
 	servicenr INT(6) ZEROFILL AUTO_INCREMENT,
-	dato DATE,
-    type VARCHAR(20),
-    beskrivelse TEXT,
-    sum INT,
-    PRIMARY KEY (servicenr)
+	dato DATETIME DEFAULT CURRENT_TIMESTAMP,
+	ordrenr INT(6) ZEROFILL,
+    PRIMARY KEY (servicenr),
+    FOREIGN KEY (ordrenr) REFERENCES ordre(ordrenr)
 );
-
+DROP TABLE service
 CREATE TABLE servicelinje
 (
 	servicenr INT(6) ZEROFILL,
 	artnr INT(6) ZEROFILL,
     antall INT,
-    pris DECIMAL(7,2),
+    type VARCHAR(20),
     PRIMARY KEY (servicenr, artnr),
     FOREIGN KEY (servicenr) REFERENCES service(servicenr),
     FOREIGN KEY (artnr) REFERENCES produktliste(artnr)

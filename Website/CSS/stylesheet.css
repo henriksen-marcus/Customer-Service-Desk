@@ -27,7 +27,7 @@ body {
 
 .dataTable
 {
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
 
 .dataTable table {
@@ -333,4 +333,14 @@ form
 .orderListRow:hover td
 {
   background: rgba(0, 0, 0, 0.05);
+}
+
+.tdRetur
+{
+  background: rgba(207, 83, 83, 0.65) !important;
+}
+
+.tdReklamasjon
+{
+  background: rgba(247, 107, 38, 0.65) !important;
 }

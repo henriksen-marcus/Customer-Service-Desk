@@ -108,3 +108,5 @@ SELECT o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
 
 select tlf from medlem where tlf = 96621643
 
+SELECT * FROM service
+

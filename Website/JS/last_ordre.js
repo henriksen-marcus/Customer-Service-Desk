@@ -2,6 +2,7 @@ $(document).ready(function() {
 
   var popup = $("#darkenBackground");
 
+  var currentOrder;
   var selectedOrders = [];
 
   function popupError(errorStr)
@@ -19,14 +20,18 @@ $(document).ready(function() {
   // errors on its own.
   function last_ordre(ordrenr)
   {
+    currentOrder = ordrenr;
     $.ajax({
       url: "./PHP/last_ordre.php",
       type: "POST",
       data: {orderNr: ordrenr},
       success: function (response) {
+        console.log(response);
         var r = jQuery.parseJSON(response);
+        console.log(r);
         if (r.success)
         {
+          // Load information
           var $od = $("#ordreDetaljer");
           var $table = $('<table />', {
             class: "userInfoTable",
@@ -41,29 +46,57 @@ $(document).ready(function() {
           $table.insertAfter($od.find("h3"));
 
           $("#ordrelinje").html(r.ordrelinje);
-          console.log(selectedOrders);
+          console.log(r.ordrelinje);
+
+          // Table row effects
           $("#ordrelinje").find("tr").each(function(){
-            $(this).addClass("orderListRow");
-            $(this).click(function(){
+            if ($(this).attr("id"))
+            {
               var on = $(this).attr("id");
               on = on.slice(3);
-              var index = jQuery.inArray(on, selectedOrders);
-              if (index == -1)
+
+              // Check if this item has been already returned,
+              // before making it returnable
+              if (jQuery.inArray(on, r.servicelinje) != -1)
               {
-                selectedOrders.push(on);
-                $(this).find("td").each(function(){
-                  $(this).addClass("tdSelected");
-                  console.log("Added");
-                });
+                console.log("Found " + on + " in servicelinje.");
+                if (r.servicelinje.type == "retur")
+                {
+                  $(this).find("td").each(function(){
+                    $(this).addClass("tdRetur");
+                  });
+                }
+                else if(r.servicelinje.type == "reklamasjon")
+                {
+                  $(this).find("td").each(function(){
+                    $(this).addClass("tdReklamasjon");
+                  });
+                }
               }
               else
               {
-                selectedOrders.splice(index, 1);
-                $(this).find("td").each(function(){
-                  $(this).removeClass("tdSelected");
+                $(this).addClass("orderListRow");
+                $(this).click(function(){
+
+                  var index = jQuery.inArray(on, selectedOrders);
+                  if (index == -1)
+                  {
+                    selectedOrders.push(on);
+                    $(this).find("td").each(function(){
+                      $(this).addClass("tdSelected");
+                      console.log("Added");
+                    });
+                  }
+                  else
+                  {
+                    selectedOrders.splice(index, 1);
+                    $(this).find("td").each(function(){
+                      $(this).removeClass("tdSelected");
+                    });
+                  }
                 });
               }
-            });
+            }
           });
 
           popup.show();
@@ -77,6 +110,33 @@ $(document).ready(function() {
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
+      }
+    });
+  }
+
+  function service(type)
+  {
+    console.log(dataContainer);
+    var dataContainer = {
+      ordrenr: currentOrder,
+      items: selectedOrders,
+      type: type
+    };
+    console.log(dataContainer);
+    $.ajax({
+      url: "./PHP/registrer_service.php",
+      type: "POST",
+      data: {data: dataContainer},
+      success: function (response) {
+        console.log("register service success");
+        console.log(response);
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+        console.log("register service fail");
         console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
@@ -177,6 +237,12 @@ $(document).ready(function() {
           popupError(r.error);
           $("#tlfNr").val('');
         }
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+        console.log(jqXHR);
+        console.log(textStatus);
+        console.log(errorThrown);
       }
     });
   });
@@ -186,12 +252,14 @@ $(document).ready(function() {
     $("#artikkelsearch").show();
   });
 
-  $("#artNrReturBtn").click(function() {
-
+  $("#ordreDetaljerReturBtn").click(function() {
+    service("retur");
   });
 
-  $("#artNrReklamasjonBtn").click(function() {
-
+  $("#ordreDetaljerReklamasjonBtn").click(function() {
+    service("reklamasjon");
   });
+
+
 
 });
