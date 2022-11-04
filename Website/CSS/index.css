@@ -18,7 +18,7 @@ body
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100px;
+  width: 120px;
   margin-top: 10px;
   user-select: none; /* Standard */
 }
@@ -62,7 +62,7 @@ span
   text-align: center;
   line-height: 75px;
   font-size: 30px;
-  border-radius: 4px;
+  border-radius: 5px;
   font-size: 20px;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */

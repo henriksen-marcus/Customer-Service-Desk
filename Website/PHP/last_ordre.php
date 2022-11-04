@@ -4,6 +4,7 @@
 
     function returnError($msg)
     {
+      global $return;
       $return['success'] = false;
       $return['error'] = $msg;
     }
@@ -19,7 +20,7 @@
       $ordreResult = mysqli_query($link, $sql);
 
       $fields = $ordreResult->fetch_fields();
-
+      $return['hello'] = "Hey";
       if (mysqli_num_rows($ordreResult) > 0)
       {
         $sql = "SELECT
@@ -39,39 +40,38 @@
           $return['success'] = true;
           $return['ordrenr'] = $orderNr;
           $return['date'] = $ordreRad['dato'];
-          mysqli_data_seek($ordreResult, 0);
+          //mysqli_data_seek($ordreResult, 0);
           $return['ordrelinje'] = fetchTable($link, $ordrelinjeResult);
 
+          // Check if any services has been done on the order
           $sql = "SELECT servicenr FROM service WHERE ordrenr = $orderNr LIMIT 1";
           $result = mysqli_query($link, $sql);
 
           if (mysqli_num_rows($result) > 0)
           {
+            // Find all services done on the order
             $servicenr = $result->fetch_assoc()['servicenr'];
-            $sql = "SELECT artnr, antall, type FROM servicelinje WHERE servicenr = $servicenr";
+            $sql = "SELECT artnr, type FROM servicelinje WHERE servicenr = $servicenr";
             $result = mysqli_query($link, $sql);
 
             if (mysqli_num_rows($result) > 0)
             {
               while ($row = $result->fetch_assoc())
               {
-                $artnrStr = strval($row['artnr']);
-                $return['servicelinje'][$arnrStr] = array(
-                  "antall" => $row['antall'],
-                  "type" => $row['type']
-                );
+                array_push($return['servicelinje'], array(
+                  'artnr' => $row['artnr'],
+                  'type' => $row['type']
+                ));
               }
-            }
-
-
-          }
+            } // Else: Ingen service funnet på ordre
+          } // Else: Ingen service funnet på ordre
 
         }
-        else { returnError("Could not fetch order items."); }
+        else { returnError("Order contains no items."); }
       }
       else { returnError("No order with id '$orderNr' exists."); }
     }
-    else { returnError("Could not send information to the server"); }
+    else { returnError("Could not send information to the server."); }
 
     echo json_encode($return);
 ?>

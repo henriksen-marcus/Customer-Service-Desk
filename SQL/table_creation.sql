@@ -21,7 +21,7 @@ CREATE TABLE prishistorikk
 (
 	artnr INT(6),
     pris DECIMAL(7,2),
-    dato DATE, -- Tiden prisen ble endret til denne verdien
+    dato DATE DEFAULT CURRENT_DATE, -- Tiden prisen ble endret til denne verdien
     PRIMARY KEY (artnr),
     FOREIGN KEY (artnr) REFERENCES produktliste(artnr)
 );
@@ -101,6 +101,7 @@ CREATE TABLE mottak
     PRIMARY KEY (mottaksnr)
 );
 
+
 CREATE TABLE mottaklinje
 (
 	mottaksnr INT AUTO_INCREMENT,
@@ -123,7 +124,6 @@ CREATE TABLE servicelinje
 (
 	servicenr INT(6) ZEROFILL,
 	artnr INT(6) ZEROFILL,
-    antall INT,
     type VARCHAR(20),
     PRIMARY KEY (servicenr, artnr),
     FOREIGN KEY (servicenr) REFERENCES service(servicenr),

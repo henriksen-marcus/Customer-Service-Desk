@@ -7,14 +7,24 @@ $(document).ready(function() {
 
   function popupError(errorStr)
   {
-      console.log("Error Triggered");
-      $("#errorText").html(errorStr);
-      ordrs.hide();
-      $("#ordreDetaljer").hide();
-      $("#artikkelsearch").hide();
-      popup.show();
-      $("#errorPopup").show();
+      console.log("Error triggered");
+      $("#errorText").text(errorStr);
+      $(".errorOverlay").show();
     }
+
+  // Why the fuck does it propogate the child elems??
+  popup.click(function(event)
+    {
+      if (event.target.id == "darkenBackground")
+      {
+        location.reload();
+      }
+    });
+
+    // Reset everything
+  $("#closeOrdre").click(function(){
+    location.reload();
+  });
 
   // Try to load order from php. Handles
   // errors on its own.
@@ -46,7 +56,6 @@ $(document).ready(function() {
           $table.insertAfter($od.find("h3"));
 
           $("#ordrelinje").html(r.ordrelinje);
-          console.log(r.ordrelinje);
 
           // Table row effects
           $("#ordrelinje").find("tr").each(function(){
@@ -57,16 +66,27 @@ $(document).ready(function() {
 
               // Check if this item has been already returned,
               // before making it returnable
-              if (jQuery.inArray(on, r.servicelinje) != -1)
+              hasService = false;
+              index = 0;
+              for (i = 0; i < r.servicelinje.length; i++)
+              {
+                if (on == r.servicelinje[i].artnr)
+                {
+                  hasService = true;
+                  index = i;
+                  break;
+                }
+              }
+              if (hasService)
               {
                 console.log("Found " + on + " in servicelinje.");
-                if (r.servicelinje.type == "retur")
+                if (r.servicelinje[index].type == "retur")
                 {
                   $(this).find("td").each(function(){
                     $(this).addClass("tdRetur");
                   });
                 }
-                else if(r.servicelinje.type == "reklamasjon")
+                else if(r.servicelinje[i].type == "reklamasjon")
                 {
                   $(this).find("td").each(function(){
                     $(this).addClass("tdReklamasjon");
@@ -84,7 +104,6 @@ $(document).ready(function() {
                     selectedOrders.push(on);
                     $(this).find("td").each(function(){
                       $(this).addClass("tdSelected");
-                      console.log("Added");
                     });
                   }
                   else
@@ -119,20 +138,29 @@ $(document).ready(function() {
 
   function service(type)
   {
-    console.log(dataContainer);
+    if (!selectedOrders.length)
+    {
+      popupError("Ingen artikler er valgt.");
+      return;
+    }
+
     var dataContainer = {
       ordrenr: currentOrder,
       items: selectedOrders,
       type: type
     };
-    console.log(dataContainer);
+
     $.ajax({
       url: "./PHP/registrer_service.php",
       type: "POST",
       data: {data: dataContainer},
       success: function (response) {
-        console.log("register service success");
-        console.log(response);
+        r = JSON.parse(response);
+        console.log(r);
+        if (r.success)
+        {
+          location.reload();
+        }
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
@@ -143,19 +171,6 @@ $(document).ready(function() {
       }
     });
   }
-
-  // Why the fuck does it propogate the child elems??
-  popup.click(function(event)
-    {
-      if (event.target.id == "darkenBackground")
-      {
-        $(this).hide();
-        $("#searchPopup").hide();
-        $("#errorPopup").hide();
-        $("#errorText").html("");
-      }
-    });
-
   // Load order directly
   $("#submitOrdreId").click(function() {
     var orderNr = $("#ordreNr").val();
@@ -259,7 +274,4 @@ $(document).ready(function() {
   $("#ordreDetaljerReklamasjonBtn").click(function() {
     service("reklamasjon");
   });
-
-
-
 });

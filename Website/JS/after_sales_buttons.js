@@ -1,73 +1,61 @@
 $(document).ready(function() {
 
-  var ordreNrBtn = $("#b1");
-  var tlfNrBtn = $("#b2");
-  var artNrBtn = $("#b3");
-
-  var ordreNrOpen = false;
-  var tlfNrOpen = false;
-  var artNrOpen = false;
+  var divs =
+  [
+    {b: $("#ordreIdDropDown"), open: true},
+    {b: $("#kundeDropDown"), open: false},
+    {b: $("#utenKvitteringDropDown"), open: false}
+  ];
 
   var closed_height = "50px";
   var open_height = "200px";
 
-  function p(div) { return div.parent().parent(); }
+  divs[0].b.click(function(){
 
-  // Opens the passed image's container and closes the rest
-  function openDiv(div)
-  {
-    // Close all container divs
-    $("#wrapper").find(".DropDownContainer").each(function() {
-      $(this).css("max-height", closed_height);
-      $(this).find("img").css("transform", "rotate(0deg)");
-    });
-
-    p(div).css("max-height", open_height);
-    div.css("transform", "rotate(180deg)");
-  }
-
-  function closeDiv(div)
-  {
-    p(div).css("max-height", closed_height);
-    div.css("transform", "rotate(0deg)");
-  }
-
-  ordreNrBtn.click(function() {
-    if (ordreNrOpen)
+    if (divs[0].open)
     {
-      closeDiv($(this));
-      ordreNrOpen = false;
+      divs[0].b.parent().css("max-height", closed_height);
+      divs[0].open = false;
     }
-    else
-    {
-      openDiv($(this));
-      ordreNrOpen = true;
+    else {
+      divs[0].b.parent().css("max-height", open_height);
+      divs[0].open = true;
+      divs[1].b.parent().css("max-height", closed_height);
+      divs[1].open = false;
+      divs[2].b.parent().css("max-height", closed_height);
+      divs[2].open = false;
     }
   });
 
-  tlfNrBtn.click(function() {
-    if (tlfNrOpen)
+  divs[1].b.click(function(){
+    if (divs[1].open)
     {
-      closeDiv($(this));
-      tlfNrOpen = false;
+      divs[1].b.parent().css("max-height", closed_height);
+      divs[1].open = false;
     }
-    else
-    {
-      openDiv($(this));
-      tlfNrOpen = true;
+    else {
+      divs[1].b.parent().css("max-height", open_height);
+      divs[1].open = true;
+      divs[0].b.parent().css("max-height", closed_height);
+      divs[0].open = false;
+      divs[2].b.parent().css("max-height", closed_height);
+      divs[2].open = false;
     }
   });
 
-  artNrBtn.click(function() {
-    if (artNrOpen)
+  divs[2].b.click(function(){
+    if (divs[2].open)
     {
-      closeDiv($(this));
-      artNrOpen = false;
+      divs[2].b.parent().css("max-height", closed_height);
+      divs[2].open = false;
     }
-    else
-    {
-      openDiv($(this));
-      artNrOpen = true;
+    else {
+      divs[2].b.parent().css("max-height", open_height);
+      divs[2].open = true;
+      divs[0].b.parent().css("max-height", closed_height);
+      divs[0].open = false;
+      divs[1].b.parent().css("max-height", closed_height);
+      divs[1].open = false;
     }
   });
 

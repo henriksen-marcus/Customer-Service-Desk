@@ -11,10 +11,8 @@
 		// OK button on error popup
 		$(document).ready(function(){
 			$("#errorOkBtn").click(function(){
-				$("#darkenBackground").hide();
-				$("#searchPopup").hide();
-        $("#errorPopup").hide();
-        $("#errorText").html("");
+        $(".errorOverlay").hide();
+				$("#errorText").html("");
 			});
 		});
 		</script>
@@ -35,7 +33,7 @@
 	  <div id="wrapper">
       <h3 style="text-align:center; font-family:'Trebuchet MS'">Søk ordre:</h3>
       <br>
-      <div class="DropDownContainer">
+      <div class="DropDownContainer" style="max-height: 200px">
         <div class="DropDown" id="ordreIdDropDown">
           <span>Søk med ordrenummer</span>
           <img src="arrow.png" alt="show" id="b1">
@@ -48,7 +46,6 @@
 					<span class="errorMsg"></span>
         </div>
       </div>
-
       <br><br>
       <div class="DropDownContainer">
         <div class="DropDown" id="kundeDropDown">
@@ -61,7 +58,6 @@
           <button id="submitTlfNr">Søk</button>
         </div>
       </div>
-
       <br><br>
       <div class="DropDownContainer">
         <div class="DropDown" id="utenKvitteringDropDown">
@@ -90,8 +86,10 @@
 	          <p style="font-weight:bold;margin-bottom:5px">Kjøpte artikler:</p>
 	          <div id="ordrelinje" class="dataTable"></div>
 	          <br>
+						<span style="font-size:12px;">Oransje = Reklamasjon utført. Rød = Retur utført.</span>
 	          <button class="prettyButtons" id="ordreDetaljerReturBtn">Retur</button>
 	          <button class="prettyButtons" id="ordreDetaljerReklamasjonBtn">Reklamasjon</button>
+						<button class="prettyButtons" id="closeOrdre">Lukk</button>
 					</div>
 				</div>
 
@@ -107,16 +105,15 @@
           <button class="prettyButtons" id="artNrReklamasjonBtn">Reklamasjon</button>
         </div>
       </div>
-
-			<div id="errorPopup">
+    </div>
+		<div class="errorOverlay">
+			<div class="errorWindow">
 				<h2>Feil:</h2>
 				<p id="errorText"></p><br>
 				<button class="prettyButtons" id="errorOkBtn">Ok</button>
 			</div>
+		</div>
 
-
-
-    </div>
 		<div id="debug">
 
 		</div>

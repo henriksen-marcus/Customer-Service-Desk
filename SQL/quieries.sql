@@ -103,10 +103,65 @@ SELECT o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
            FROM medlem m
            LEFT JOIN ordre o ON m.kundenr = o.kundenr
            LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr
-           WHERE (SELECT kundenr FROM medlem WHERE tlf = 96621643 LIMIT 1)
+           WHERE (SELECT kundenr FROM medlem WHERE tlf = 96621643);
 
 
-select tlf from medlem where tlf = 96621643
+select tlf from medlem where tlf = 96621643;
 
-SELECT * FROM service
+SELECT * FROM service;
+
+SELECT * FROM servicelinje;
+
+TRUNCATE service;
+
+SELECT * FROM ordre WHERE kundenr = 1;
+
+SELECT o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
+             FROM medlem m
+             LEFT JOIN ordre o ON m.kundenr = o.kundenr
+             LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr
+             WHERE m.tlf = 96621643;
+
+SELECT o.ordrenr, SUM(pris) AS Sum
+FROM ordre o LEFT JOIN ordrelinje ol
+ON o.ordrenr = ol.ordrenr
+WHERE o.kundenr = 1
+GROUP BY o.kundenr;
+
+SELECT * FROM ordre;
+SELECT * FROM ordrelinje;
+
+SELECT * FROM service;
+SELECT * FROM servicelinje;
+
+SELECT m.kundenr, o.ordrenr, (SELECT SUM(ol.pris) FROM ordrelinje ol WHERE ol.ordrenr = o.ordrenr) AS Sum
+FROM medlem m LEFT JOIN ordre o ON m.kundenr = o.kundenr
+LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr
+WHERE m.kundenr = 1;
+
+
+SELECT o.ordrenr, (SELECT SUM(ol.pris) FROM ordrelinje ol WHERE ol.ordrenr = o.ordrenr) AS Sum
+FROM ordre o;
+
+SELECT ol.ordrenr, SUM(ol.pris) Sum
+FROM ordrelinje ol
+WHERE ol.ordrenr = 3;
+
+SELECT o.ordrenr, o.kundenr, o.betalingsmetode, (SELECT SUM(ol.pris) FROM ordrelinje ol WHERE o.ordrenr = ol.ordrenr) Sum
+FROM ordre o
+WHERE kundenr = 1;
+
+
+
+SELECT o.ordrenr, o.dato, o.betalingsmetode,
+              (SELECT SUM(ol.pris) FROM ordrelinje ol WHERE o.ordrenr = ol.ordrenr) Sum
+             FROm ordre o
+             WHERE o.kundenr = (SELECT kundenr FROM medlem WHERE tlf = 96621643)
+
+TRUNCATE TABLE service;
+TRUNCATE TABLE servicelinje;
+
+SELECT * FROM service LEFT JOIN servicelinje s on service.servicenr = s.servicenr;
+
+SELECT * FROM medlem;
 

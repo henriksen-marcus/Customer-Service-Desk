@@ -18,11 +18,10 @@
           if ($tlfNr == $row['tlf'])
           {
             $sql =
-            "SELECT o.ordrenr, o.dato, o.betalingsmetode, SUM(ol.pris) AS Sum
-             FROM medlem m
-             LEFT JOIN ordre o ON m.kundenr = o.kundenr
-             LEFT JOIN ordrelinje ol ON o.ordrenr = ol.ordrenr
-             WHERE (SELECT kundenr FROM medlem WHERE tlf = $tlfNr LIMIT 1)";
+            "SELECT o.ordrenr, o.dato, o.betalingsmetode,
+              (SELECT SUM(ol.pris) FROM ordrelinje ol WHERE o.ordrenr = ol.ordrenr) Sum
+             FROM ordre o
+             WHERE o.kundenr = (SELECT kundenr FROM medlem WHERE tlf = $tlfNr)";
              $result = mysqli_query($link, $sql);
 
              if (mysqli_num_rows($result) > 0)
