@@ -41,7 +41,7 @@ if (isset($_POST['navn'])) {
   if (!empty($hylleNr))
   {
     $hylle = $hylleBokstav . $hylleNr;
-    addSQL("hylle = $hylle");
+    addSQL("hylle = '$hylle'");
   }
 
 
@@ -51,10 +51,13 @@ if (isset($_POST['navn'])) {
   echo "<script>console.log('SQL query: ' + $sqlPrint)</script>";
 
 	$resultat = mysqli_query($link, $sql);
-  $antallRader = mysqli_num_rows($resultat);
-  echo "Fant $antallRader artikler.<br><br>";
+  if ($resultat)
+  {
+    $antallRader = mysqli_num_rows($resultat);
+    echo "Fant $antallRader artikler.<br><br>";
 
-	printTable($link, $resultat);
+  	printTable($link, $resultat);
+  }
 }
 else {
   echo "Det har oppstått en feil.";
